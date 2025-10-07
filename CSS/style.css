@@ -97,6 +97,7 @@ nav .logo {
 nav ul {
     list-style: none;
     display: flex;
+    position: relative;
 }
 
 nav ul li {
@@ -109,6 +110,9 @@ nav ul li a {
     font-size: 1rem;
     font-weight: 600;
     transition: color 0.3s ease;
+    position: relative;
+    z-index: 1;
+    padding: 10px 15px;
 }
 
 /* === GLOWING TEXT EFFECT (Referensi #3) === */
@@ -119,6 +123,22 @@ nav ul li a {
         0 0 10px #00aaff,
         0 0 21px #00aaff,
         0 0 42px #00aaff;
+}
+
+/* === NAVIGATION HIGHLIGHTER EFFECT === */
+#nav-highlighter {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: #00aaff;
+    border-radius: 5px;
+    /* z-index: 0; biarkan di belakang teks */
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transisi halus */
+}
+
+/* Sedikit style tambahan untuk item yang aktif */
+nav ul li.active a {
+    color: #ffffff;
 }
 
 /* === HERO SECTION === */
