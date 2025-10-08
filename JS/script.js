@@ -7,25 +7,57 @@ window.addEventListener('load', () => {
 
     // === Navigation Comet Effect ===
     const navItems = document.querySelectorAll('nav ul li');
-    const comet = document.getElementById('nav-comet');
+    const sparkle = document.getElementById('nav-sparkle-underline');
 
-    // Fungsi untuk menggerakkan komet ke posisi item yang dituju
-    function moveComet(targetItem) {
-        // Atur lebar komet sesuai lebar item
-        comet.style.width = `${targetItem.offsetWidth}px`;
-        // Gerakkan komet menggunakan transform untuk animasi yang halus
-        comet.style.transform = `translateX(${targetItem.offsetLeft}px)`;
+    let currentActiveItem = document.querySelector('nav ul li[data-active="true"]');
+
+    // Fungsi untuk memposisikan sparkle di bawah item tertentu
+    function setSparklePosition(item) {
+        sparkle.style.width = `${item.offsetWidth}px`;
+        sparkle.style.transform = `translateX(${item.offsetLeft}px)`;
     }
 
-    // Posisikan komet di item pertama saat halaman pertama kali dimuat
-    if (navItems.length > 0) {
-        moveComet(navItems[0]);
+    // Atur posisi awal saat halaman dimuat
+    if (currentActiveItem) {
+        setSparklePosition(currentActiveItem);
     }
 
-    // Tambahkan event listener untuk setiap item menu
     navItems.forEach(item => {
         item.addEventListener('click', () => {
-            moveComet(item); // Pindahkan komet ke item yang di-klik
+            const oldActiveItem = currentActiveItem;
+            
+            // Jika mengklik item yang sudah aktif, jangan lakukan apa-apa
+            if (oldActiveItem === item) return;
+            
+            // Hapus status aktif dari item lama
+            if (oldActiveItem) {
+                oldActiveItem.removeAttribute('data-active');
+            }
+            
+            // Tentukan item baru dan posisinya
+            const newItem = item;
+            newItem.setAttribute('data-active', 'true');
+            currentActiveItem = newItem;
+            
+            const oldRect = oldActiveItem.getBoundingClientRect();
+            const newRect = newItem.getBoundingClientRect();
+
+            // --- INI ADALAH LOGIKA ANIMASI KOMET ---
+
+            // 1. Peregangan (Stretch)
+            // Tentukan titik awal dan lebar peregangan
+            const startPoint = Math.min(oldRect.left, newRect.left) - oldRect.left + oldActiveItem.offsetLeft;
+            const stretchWidth = Math.abs(newRect.left - oldRect.left) + (newRect.left > oldRect.left ? newRect.width : oldRect.width);
+
+            sparkle.style.width = `${stretchWidth}px`;
+            sparkle.style.transform = `translateX(${startPoint}px)`;
+
+            // 2. Menyusut (Shrink)
+            // Setelah animasi peregangan dimulai, langsung set ke posisi akhir.
+            // CSS transition akan mengurus animasinya menjadi halus.
+            setTimeout(() => {
+                setSparklePosition(newItem);
+            }, 50); // Delay kecil untuk memastikan transisi berjalan
         });
     });
 });

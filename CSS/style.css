@@ -24,6 +24,21 @@ h2 {
     text-transform: uppercase;
 }
 
+main section {
+    min-height: 100vh;
+    
+    scroll-margin-top: 80px; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* === PRELOADER (Referensi #2) === */
 .preloader {
     position: fixed;
@@ -115,19 +130,51 @@ nav ul li a {
     padding: 10px 15px;
 }
 
-/* === NAVIGATION COMET EFFECT === */
-#nav-comet {
+/* Style untuk elemen percikan/garis bawah */
+#nav-sparkle-underline {
     position: absolute;
-    bottom: 0; /* Posisikan di bagian bawah */
-    height: 3px; /* Ketebalan garis */
-    background: linear-gradient(to right, #ff3333, #ff9933, #ffff33); /* Gradien api komet */
+    bottom: -5px; /* Sedikit di bawah teks */
+    left: 0; /* Posisi awal di kiri */
+    height: 4px;
     border-radius: 2px;
-    box-shadow: 0 0 15px rgba(255, 100, 50, 0.8), /* Cahaya utama */
-                0 0 25px rgba(255, 50, 50, 0.6);   /* Cahaya tambahan */
     
-    /* Transisi untuk pergerakan yang halus seperti komet */
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-                width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Inti dari efek visual: gradien dan shadow berlapis */
+    background: linear-gradient(90deg, #00aaff, #80d4ff, white);
+    box-shadow: 0 0 8px #00aaff, 
+                0 0 15px #00aaff,
+                0 0 25px rgba(0, 170, 255, 0.7);
+
+    /* Transisi ini akan membuat animasi pergerakan dan peregangan terlihat hidup */
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+                width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Menerapkan animasi listrik ke pseudo-elements */
+#nav-sparkle-underline::before,
+#nav-sparkle-underline::after {
+    content: ''; /* Wajib ada untuk pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit; /* Mengikuti lengkungan induknya */
+    
+    /* Gunakan background & shadow yang sama untuk konsistensi */
+    background: linear-gradient(90deg, #00aaff, #80d4ff, white);
+    box-shadow: 0 0 8px #00aaff, 
+                0 0 15px #00aaff,
+                0 0 25px rgba(0, 170, 255, 0.7);
+
+    /* Terapkan animasi yang kita buat */
+    animation: electric-flicker 0.1s infinite;
+}
+
+/* Buat lapisan kedua (::after) sedikit berbeda agar tidak tumpang tindih persis */
+#nav-sparkle-underline::after {
+    animation-duration: 0.08s; /* Durasinya sedikit beda agar tidak sinkron */
+    animation-direction: reverse; /* Berjalan terbalik agar lebih acak */
+    filter: blur(1px); /* Sedikit blur untuk lapisan kedua */
 }
 
 /* === GLOWING TEXT EFFECT (Referensi #3) === */
@@ -172,6 +219,67 @@ nav ul li.active a {
     margin-top: 20px;
 }
 
+
+/* === HERO CONTENT LAYOUT === */
+
+.hero-content {
+    display: flex; /* Mengaktifkan Flexbox untuk membuat layout kolom */
+    align-items: center; /* Menyelaraskan foto dan teks secara vertikal di tengah */
+    gap: 50px; /* Memberi jarak antara foto dan teks */
+    margin-top: 40px; /* Memberi jarak dari judul ke konten di bawahnya */
+    max-width: 1000px; /* Membatasi lebar maksimum agar tidak terlalu lebar di layar besar */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-image {
+    flex-basis: 250px; /* Menentukan lebar awal kolom foto */
+    flex-shrink: 0; /* Mencegah foto menyusut di layar kecil jika tidak perlu */
+}
+
+.hero-image img {
+    width: 100%; /* Membuat lebar foto memenuhi kolomnya */
+    border-radius: 50%; /* (Opsional) Membuat foto menjadi bulat, terlihat profesional */
+    border: 5px solid #00aaff; /* (Opsional) Memberi bingkai biru neon */
+    box-shadow: 0 0 15px #00aaff; /* (Opsional) Memberi efek glow pada bingkai */
+}
+
+.hero-text {
+    flex-grow: 1; /* Membiarkan kolom teks mengisi sisa ruang yang tersedia */
+    text-align: left; /* Membuat paragraf lebih mudah dibaca dengan rata kiri */
+}
+
+/* === HERO TEXT REDESIGN === */
+
+.hero-text h1 {
+    font-size: 3rem; /* Buat judul utama lebih besar dan menonjol */
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-text .subheadline {
+    font-size: 1.2rem; /* Ukuran font yang nyaman dibaca */
+    color: #c0c0c0; /* Sedikit lebih redup dari teks biasa */
+    max-width: 600px; /* Batasi lebar agar tidak terlalu panjang */
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #00aaff;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+.cta-button:hover {
+    background-color: #008ecc;
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.8);
+}
 
 /* === SERVICES / DASHBOARD CARD EFFECT (Referensi #4) === */
 .services {
@@ -271,4 +379,13 @@ footer {
     padding: 20px;
     text-align: center;
     margin-top: 40px;
+}
+
+@keyframes electric-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }

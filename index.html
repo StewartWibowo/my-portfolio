@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./CSS/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="preloader">
@@ -17,20 +19,34 @@
         <nav>
             <div class="logo">MyPortfolio</div>
             <ul>
-                <li><a href="#home" class="glowing-text">Home</a></li>
+                <li data-active="true"><a href="#home" class="glowing-text">Home</a></li>
                 <li><a href="#about" class="glowing-text">About</a></li>
                 <li><a href="#portfolio" class="glowing-text">Portfolio</a></li>
                 <li><a href="#contact" class="glowing-text">Contact</a></li>
 
-                <div id="nav-comet"></div>
+                <div id="nav-sparkle-underline"></div>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <h1 class="glowing-text-title">SELAMAT DATANG DI WEBSITE SAYA</h1>
-            <p>Lulusan Sarjana Teknik Informatika dari Universitas Surabaya dengan spesialisasi dalam Data Science dan  Artificial Intelligence. Secara aktif mengikuti program bootcamp dan kegiatan pembelajaran berkelanjutan untuk terus meningkatkan keahlian teknis dan memperdalam pengetahuan di bidang baru. Memiliki kemampuan adaptasi dan kepemimpinan melalui pengalaman sukses memimpin organisasi, dipercaya tim sebagai ketua proyek, serta ditunjuk dosen sebagai panitia inti dalam beberapa event fakultas/universitas, yang menghasilkan peningkatan kolaborasi dan pencapaian tujuan bersama. Memiliki fondasi teknis dalam pengembangan web dan aplikasi mobile menggunakan HTML, Laravel, dan Flutter. Bermotivasi untuk memberikan kontribusi signifikan secara aktif dalam sebuah tim untuk mendorong inovasi dan kesuksesan perusahaan.</p>
+            <h1 class="glowing-text-title">WELCOME TO MY WEBSITE</h1>
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="images/myphoto.png" alt="Foto profil Stewart Wibowo">
+                </div>
+
+                <div class="hero-text">
+                    <h1>Halo, Saya Stewart Wibowo</h1>
+
+                    <p class="subheadline">
+                        Seorang lulusan Teknik Informatika dengan spesialisasi Data Science & AI yang bersemangat dalam
+                        mendorong inovasi melalui teknologi.
+                    </p>
+
+                    <a href="#portfolio" class="cta-button">Lihat Portofolio Saya</a>
+                </div>
         </section>
 
         <section id="about" class="services">
@@ -38,7 +54,8 @@
             <div class="card-container">
                 <div class="card">
                     <h3>Web Design</h3>
-                    <p>Menciptakan desain web yang modern, responsif, dan intuitif untuk pengalaman pengguna terbaik.</p>
+                    <p>Menciptakan desain web yang modern, responsif, dan intuitif untuk pengalaman pengguna terbaik.
+                    </p>
                 </div>
                 <div class="card">
                     <h3>Frontend Dev</h3>
@@ -76,7 +93,7 @@
                         <p>Deskripsi singkat tentang proyek ini.</p>
                     </div>
                 </div>
-                 <div class="zoom-overlay">
+                <div class="zoom-overlay">
                     <img src="project4.jpg" alt="Project 4" />
                     <div class="overlay">
                         <h3>Judul Proyek 4</h3>
@@ -86,11 +103,12 @@
             </div>
         </section>
     </main>
-    
+
     <footer>
         <p>&copy; 2025 Nama Anda. All Rights Reserved.</p>
     </footer>
-    
+
     <script src="./JS/script.js"></script>
 </body>
+
 </html>
