@@ -115,6 +115,21 @@ nav ul li a {
     padding: 10px 15px;
 }
 
+/* === NAVIGATION COMET EFFECT === */
+#nav-comet {
+    position: absolute;
+    bottom: 0; /* Posisikan di bagian bawah */
+    height: 3px; /* Ketebalan garis */
+    background: linear-gradient(to right, #ff3333, #ff9933, #ffff33); /* Gradien api komet */
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(255, 100, 50, 0.8), /* Cahaya utama */
+                0 0 25px rgba(255, 50, 50, 0.6);   /* Cahaya tambahan */
+    
+    /* Transisi untuk pergerakan yang halus seperti komet */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
 /* === GLOWING TEXT EFFECT (Referensi #3) === */
 .glowing-text:hover {
     color: #fff;
@@ -126,16 +141,6 @@ nav ul li a {
 }
 
 /* === NAVIGATION HIGHLIGHTER EFFECT === */
-#nav-highlighter {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: #00aaff;
-    border-radius: 5px;
-    /* z-index: 0; biarkan di belakang teks */
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transisi halus */
-}
-
 /* Sedikit style tambahan untuk item yang aktif */
 nav ul li.active a {
     color: #ffffff;
