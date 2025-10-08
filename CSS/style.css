@@ -26,12 +26,10 @@ h2 {
 
 main section {
     min-height: 100vh;
-    
     scroll-margin-top: 80px; 
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
 
 img {
@@ -233,6 +231,14 @@ nav ul li.active a {
     width: 100%;
     margin: auto; /* Pusatkan di tengah halaman */
     flex-wrap: wrap; /* Izinkan wrap ke bawah di layar kecil */
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Menengahkan konten secara vertikal */
+    align-items: center;   /* Menengahkan konten secara horizontal */
+    text-align: center;
 }
 
 /* Gaya untuk Kolom Kiri (Teks dan Tombol) */
