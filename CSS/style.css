@@ -1,20 +1,35 @@
-/* === GENERAL STYLES === */
+/* ==================================
+   1. GENERAL STYLES
+   ================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #1a1a2e; /* Warna latar belakang gelap */
+    background: linear-gradient(-45deg, #1a1a2e, #16213e, #2a3a60, #16213e);
+    background-size: 400% 400%;
+    animation: background-pan 15s ease infinite;
     color: #e0e0e0;
     line-height: 1.6;
 }
 
-section {
-    padding: 60px 20px;
-    text-align: center;
+@keyframes background-pan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 h2 {
@@ -24,552 +39,617 @@ h2 {
     text-transform: uppercase;
 }
 
-main section {
-    min-height: 90vh;
-    scroll-margin-top: 80px; 
-    width: 100%;
-    padding: 60px 20px;
-    box-sizing: border-box;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* === PRELOADER (Referensi #2) === */
+/* ==================================
+   2. PRELOADER
+   ================================== */
 .preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #1a1a2e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #1a1a2e; display: flex; justify-content: center;
+    align-items: center; z-index: 1000;
     transition: opacity 0.75s ease, visibility 0.75s ease;
 }
-
-.preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader-text {
-    font-size: 3rem;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.2);
-    position: relative;
-}
-
+.preloader.fade-out { opacity: 0; visibility: hidden; }
+.loader-text { font-size: 3rem; font-weight: bold; color: rgba(255, 255, 255, 0.2); position: relative; }
 .loader-text::before {
-    content: 'LOADING...';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    color: #00aaff;
-    overflow: hidden;
+    content: 'LOADING...'; position: absolute; top: 0; left: 0;
+    width: 0; height: 100%; color: #00aaff; overflow: hidden;
     animation: fill-text 2.5s ease-in-out infinite;
 }
+@keyframes fill-text { 0%, 100% { width: 0; } 50% { width: 100%; } }
 
-@keyframes fill-text {
-    0%, 100% {
-        width: 0;
-    }
-    50% {
-        width: 100%;
-    }
-}
-
-/* === HEADER & NAVIGATION === */
+/* ==================================
+   3. HEADER & NAVIGATION
+   ================================== */
 header {
+    position: absolute; top: 0; left: 0; width: 100%;
+    padding: 1rem 5%; z-index: 999;
+    background: transparent; box-shadow: none;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+header.scrolled {
     background: #16213e;
-    padding: 1rem 5%;
-    position: sticky;
-    top: 0;
-    z-index: 999;
+    position: fixed;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav .logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    position: relative;
-}
-
-nav ul li {
-    margin-left: 25px;
-}
-
+nav { display: flex; justify-content: space-between; align-items: center; }
+nav .logo { font-size: 1.8rem; font-weight: 700; color: #ffffff; }
+nav ul { list-style: none; display: flex; position: relative; }
+nav ul li { margin-left: 25px; }
 nav ul li a {
-    text-decoration: none;
-    color: #e0e0e0;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
-    position: relative;
-    z-index: 1;
-    padding: 10px 15px;
+    text-decoration: none; color: #e0e0e0; font-size: 1rem;
+    font-weight: 600; transition: color 0.3s ease;
+    position: relative; z-index: 1; padding: 10px 15px;
 }
-
-/* Style untuk elemen percikan/garis bawah */
-#nav-sparkle-underline {
-    position: absolute;
-    bottom: -5px; /* Sedikit di bawah teks */
-    left: 0; /* Posisi awal di kiri */
-    height: 4px;
-    border-radius: 2px;
-    
-    /* Inti dari efek visual: gradien dan shadow berlapis */
-    background: linear-gradient(90deg, #00aaff, #80d4ff, white);
-    box-shadow: 0 0 8px #00aaff, 
-                0 0 15px #00aaff,
-                0 0 25px rgba(0, 170, 255, 0.7);
-
-    /* Transisi ini akan membuat animasi pergerakan dan peregangan terlihat hidup */
-    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1),
-                width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-/* Menerapkan animasi listrik ke pseudo-elements */
-#nav-sparkle-underline::before,
-#nav-sparkle-underline::after {
-    content: ''; /* Wajib ada untuk pseudo-elements */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit; /* Mengikuti lengkungan induknya */
-    
-    /* Gunakan background & shadow yang sama untuk konsistensi */
-    background: linear-gradient(90deg, #00aaff, #80d4ff, white);
-    box-shadow: 0 0 8px #00aaff, 
-                0 0 15px #00aaff,
-                0 0 25px rgba(0, 170, 255, 0.7);
-
-    /* Terapkan animasi yang kita buat */
-    animation: electric-flicker 0.1s infinite;
-}
-
-/* Buat lapisan kedua (::after) sedikit berbeda agar tidak tumpang tindih persis */
-#nav-sparkle-underline::after {
-    animation-duration: 0.08s; /* Durasinya sedikit beda agar tidak sinkron */
-    animation-direction: reverse; /* Berjalan terbalik agar lebih acak */
-    filter: blur(1px); /* Sedikit blur untuk lapisan kedua */
-}
-
-/* === GLOWING TEXT EFFECT (Referensi #3) === */
 .glowing-text:hover {
     color: #fff;
-    text-shadow:
-        0 0 7px #00aaff,
-        0 0 10px #00aaff,
-        0 0 21px #00aaff,
-        0 0 42px #00aaff;
+    text-shadow: 0 0 7px #00aaff, 0 0 10px #00aaff, 0 0 21px #00aaff, 0 0 42px #00aaff;
+}
+#nav-sparkle-underline {
+    position: absolute; bottom: -5px; left: 0; height: 4px; border-radius: 2px;
+    background: linear-gradient(90deg, #00aaff, #80d4ff, white);
+    box-shadow: 0 0 8px #00aaff, 0 0 15px #00aaff, 0 0 25px rgba(0, 170, 255, 0.7);
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.cta-button:hover {
-    background-color: #008ecc;
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.8);
-}
-
-/* --- HERO SECTION REDESIGN --- */
-/* Menyesuaikan container utama hero */
+/* ==================================
+   4. SECTION LAYOUTS
+   ================================== */
 .hero {
-    display: flex;
-    align-items: center; /* Sejajarkan vertikal di tengah */
-    justify-content: center; /* Pusatkan konten jika lebih sempit dari max-width */
-    gap: 40px; /* Jarak antara kolom kiri dan kanan */
-    min-height: 90vh;
-    max-width: 1200px; /* Batasi lebar total konten */
-    margin: auto; /* Pusatkan container di tengah halaman */
-    padding: 0 20px;
-    box-sizing: border-box;
-    text-align: left;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; min-height: 100vh; max-width: 1200px;
+    margin: auto; padding: 0 20px; text-align: left;
+    scroll-margin-top: 80px; 
 }
-
 .content-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Menengahkan konten secara vertikal */
-    align-items: center;   /* Menengahkan konten secara horizontal */
-    text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 60px 20px; box-sizing: border-box;
+    scroll-margin-top: 80px;
 }
 
-/* Gaya untuk Kolom Kiri (Teks dan Tombol) */
-.hero-left {
-    flex: 1; /* Ambil sisa ruang */
-    padding-right: 40px; /* Jarak antara teks dan gambar */
-    min-width: 300px; /* Pastikan tidak terlalu sempit */
+/* Aturan KHUSUS untuk menimpa .content-section di halaman kontak */
+#contact.content-section {
+    display: block; 
+    text-align: left; 
+    background-color: #16213e;
 }
 
-.hero-left .greeting {
-    font-size: 1.2rem;
-    color: #c0c0c0;
-    margin-bottom: 5px;
+/* ==================================
+   5. HERO SECTION CONTENT
+   ================================== */
+.hero-left { flex: 1; min-width: 300px; }
+.hero-left .greeting { font-size: 1.2rem; color: #c0c0c0; margin-bottom: 5px; }
+.hero-left h1 { font-size: 3.5rem; color: white; margin-bottom: 10px; line-height: 1.1; font-weight: 700; }
+.hero-left h2 { font-size: 2rem; color: #00aaff; margin-bottom: 25px; font-weight: 500; }
+.hero-left .bio-summary { font-size: 1.1rem; color: #a0a0a0; margin-bottom: 40px; max-width: 500px; line-height: 1.6; }
+.hero-buttons { display: flex; gap: 20px; }
+.hero-right { flex-basis: 400px; text-align: center; position: relative; }
+.hero-right img {
+    border-radius: 50%; /* Membuat foto menjadi bulat */
+    border: 5px solid #00aaff; /* Bingkai neon biru */
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.8), 
+                0 0 40px rgba(0, 170, 255, 0.5); /* Efek glow yang kuat */
+    margin: auto; /* Pusatkan gambar di dalam div-nya */
 }
 
-.hero-left h1 {
-    font-size: 3.5rem; /* Ukuran nama yang besar */
-    color: white;
-    margin-bottom: 10px;
-    line-height: 1.1;
-    font-weight: 700;
-}
-
-.hero-left h2 {
-    font-size: 2rem; /* Ukuran spesialisasi */
-    color: #00aaff; /* Warna neon biru */
-    margin-bottom: 25px;
-    font-weight: 500;
-}
-
-.hero-left .bio-summary {
-    font-size: 1.1rem;
-    color: #a0a0a0;
-    margin-bottom: 40px;
-    max-width: 500px; /* Batasi lebar paragraf */
-    line-height: 1.6;
-}
-
-/* Container untuk tombol */
-.hero-buttons {
-    display: flex;
-    gap: 20px; /* Jarak antar tombol */
-}
-
-/* Gaya Dasar Tombol */
+/* ==================================
+   6. BUTTONS
+   ================================== */
 .cta-button {
-    padding: 14px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
+    padding: 14px 30px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+    border: none; cursor: pointer;
 }
-
-/* Gaya Tombol Secondary */
 .cta-button.secondary {
     background-color: transparent;
     color: #00aaff;
     border: 2px solid #00aaff;
     box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
 }
-
 .cta-button.secondary:hover {
-    background-color: #00aaff;
-    color: #ffffff;
-    transform: translateY(-3px);
+    background-color: #00aaff; color: #ffffff; transform: translateY(-3px);
     box-shadow: 0 0 25px rgba(0, 170, 255, 0.8);
 }
 
-/* Gaya untuk Kolom Kanan (Gambar) */
-.hero-right {
-    flex-basis: 400px; /* Lebar tetap untuk gambar di layar besar */
-    text-align: center; /* Pusatkan gambar */
-    position: relative;
-    padding-left: 20px; /* Jarak dari teks */
-}
-
-.hero-right img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%; /* Membuat gambar bulat */
-    border: 5px solid #00aaff; /* Bingkai neon biru */
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.8), 
-                0 0 40px rgba(0, 170, 255, 0.5); /* Efek glow yang lebih kuat */
-    display: block; /* Hapus spasi di bawah gambar */
-    margin: auto; /* Pusatkan gambar di dalam div-nya */
-}
-
-/* --- RESPONSIVENESS (Penting untuk hero section) --- */
-@media (max-width: 820px) {
-    .hero {
-        flex-direction: column;
-        text-align: center; /* Pusatkan teks untuk tampilan mobile */
-    }
-
-    .hero-left, .hero-right {
-        padding: 0;
-        margin-bottom: 40px;
-    }
-    
-    .hero-left {
-        order: 2; /* Pindahkan teks ke bawah gambar */
-    }
-
-    .hero-right {
-        order: 1; /* Pindahkan gambar ke atas teks */
-        margin-bottom: 20px; /* Kurangi jarak bawah gambar */
-    }
-
-    .hero-left .bio-summary {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-buttons {
-        justify-content: center; /* Pusatkan tombol */
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-left h1 { font-size: 2.5rem; }
-    .hero-left h2 { font-size: 1.5rem; }
-
-    .hero-buttons {
-        flex-direction: column;
-        gap: 15px;
-    }
-}
-
 /* ==================================
-   STYLE UNTUK SECTION CONTACT
+   SECONDARY SHINE BUTTON (HOVER EFFECT)
    ================================== */
 
-.section-subheadline {
-    font-size: 1.2rem;
-    color: #c0c0c0;
-    max-width: 600px;
-    margin-top: -20px; /* Sedikit lebih dekat ke judul */
-    margin-bottom: 50px;
-}
-
-.contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Jarak antar kartu kontak */
-    flex-wrap: wrap; /* Biarkan kartu turun ke bawah di layar kecil */
-}
-
-.contact-card {
-    background-color: #16213e; /* Warna dasar yang sama dengan header */
-    border: 2px solid #0f3460;
-    border-radius: 10px;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #e0e0e0;
-    min-width: 300px;
-    transition: all 0.3s ease;
-}
-
-.contact-card:hover {
-    transform: translateY(-5px);
-    border-color: #00aaff;
-    box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2);
-}
-
-.contact-card .icon-wrapper {
-    font-size: 2.5rem; /* Ukuran ikon */
-    color: #00aaff;
-    margin-right: 20px;
-}
-
-.contact-card .contact-info h3 {
-    margin-bottom: 5px;
-    color: #ffffff;
-}
-
-.contact-card .contact-info p {
-    font-size: 0.9rem;
-    color: #a0a0a0;
-}
-
-/* === SERVICES / DASHBOARD CARD EFFECT (Referensi #4) === */
-.services {
-    background: #16213e;
-}
-
-.card-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-.card {
-    background: #1a1a2e;
-    padding: 30px;
-    border-radius: 15px;
-    width: 300px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid #0f3460;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 170, 255, 0.2);
-    border-color: #00aaff;
-}
-
-.card h3 {
-    font-size: 1.5rem;
-    color: #00aaff;
-    margin-bottom: 15px;
-}
-
-/* === PORTFOLIO / HOVER IMAGE ZOOM (Referensi #1) === */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.zoom-overlay {
+/* Siapkan tombol untuk efek shine */
+.shine-on-hover {
     position: relative;
-    width: 100%;
-    height: 250px;
     overflow: hidden;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.zoom-overlay img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(22, 33, 62, 0.85); /* Warna overlay disesuaikan */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    text-align: center;
-    padding: 20px;
-}
-
-.zoom-overlay:hover img {
-    transform: scale(1.15); /* Zoom lebih terlihat */
-}
-
-.zoom-overlay:hover .overlay {
-    opacity: 1;
-}
-
-.overlay h3 {
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-}
-
-/* === FOOTER === */
-footer {
-    background: #16213e;
-    padding: 20px;
-    text-align: center;
-    margin-top: 40px;
-}
-
-@keyframes electric-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-/* ==================================
-   SHINE BUTTON EFFECT
-   ================================== */
-
-/* Defenisi animasi untuk kilatan cahaya */
-@keyframes shine-sweep {
-    from {
-        transform: translateX(-100%) skewX(-20deg);
-    }
-    to {
-        transform: translateX(200%) skewX(-20deg);
-    }
-}
-
-/* Style utama untuk tombol shine */
-.shine-button {
-    position: relative; /* Wajib, agar efek kilatan bisa diposisikan di dalamnya */
-    overflow: hidden; /* Wajib, untuk menyembunyikan kilatan saat di luar tombol */
+/* Aturan saat di-hover */
+.shine-on-hover:hover {
+    color: white; /* Ubah warna teks menjadi putih */
+    border-color: transparent; /* Sembunyikan border saat background muncul */
     
-    /* Latar belakang gradien yang akan bergerak */
+    /* Terapkan background gradien yang bergerak */
     background-image: linear-gradient(120deg, hsl(217, 100%, 56%) 0%, hsl(194, 100%, 69%) 55%, hsl(217, 100%, 56%) 90%);
-    background-size: 250% auto; /* Buat gradien lebih lebar dari tombolnya */
-    background-position: left center; /* Mulai dari kiri */
-    
-    color: white;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    
-    /* Shadow kompleks dari referensi Anda */
-    box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 
-                0px 5px 5px -1px rgba(58, 125, 233, 0.25), 
-                inset 4px 4px 8px rgba(175, 230, 255, 0.5), 
-                inset -4px -4px 8px rgba(19, 95, 216, 0.35);
-                
-    transition: background-position 0.8s ease-in-out, transform 0.2s ease;
-}
-
-/* Efek saat mouse hover di atas tombol */
-.shine-button:hover {
-    background-position: right center; /* Pindahkan gradien ke kanan */
-}
-
-/* Elemen untuk kilatan cahaya */
-.shine-button .shine-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    
-    /* Buat kilatan dengan gradien transparan */
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
-    
-    /* Posisikan di luar layar dan miringkan */
-    transform: translateX(-100%) skewX(-20deg);
+    background-size: 250% auto;
+    background-position: right center; /* Langsung ke posisi akhir agar terlihat seperti mengisi */
 }
 
 /* Jalankan animasi kilatan saat hover */
-.shine-button:hover .shine-effect {
+.shine-on-hover:hover .shine-effect {
     animation: shine-sweep 0.8s ease-in-out;
 }
 
-/* Efek saat tombol ditekan */
-.shine-button:active {
-    transform: scale(0.95);
+@keyframes shine-sweep { from { transform: translateX(-100%) skewX(-20deg); } to { transform: translateX(200%) skewX(-20deg); } }
+.shine-button {
+    position: relative; overflow: hidden;
+    background-image: linear-gradient(120deg, hsl(217, 100%, 56%) 0%, hsl(194, 100%, 69%) 55%, hsl(217, 100%, 56%) 90%);
+    background-size: 250% auto; background-position: left center; color: white;
+    box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+    transition: background-position 0.8s ease-in-out, transform 0.2s ease;
+}
+.shine-button:hover { background-position: right center; }
+.shine-button .shine-effect {
+    position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
+    transform: translateX(-100%) skewX(-20deg);
+}
+.shine-button:hover .shine-effect { animation: shine-sweep 0.8s ease-in-out; }
+.shine-button:active { transform: scale(0.95); }
+
+/* ==================================
+   7. ABOUT, PORTFOLIO, CONTACT SECTIONS
+   ================================== */
+.services { background: #16213e; }
+.card-container, .portfolio-grid, .contact-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+.card, .contact-card { background-color: #1a1a2e; border: 1px solid #0f3460; border-radius: 10px; padding: 25px; transition: all 0.3s ease; width: 300px; }
+.card:hover, .contact-card:hover { transform: translateY(-5px); border-color: #00aaff; box-shadow: 0 10px 20px rgba(0, 170, 255, 0.2); }
+.card h3 { font-size: 1.5rem; color: #00aaff; margin-bottom: 15px; }
+.contact-card { display: flex; align-items: center; text-decoration: none; color: #e0e0e0; min-width: 300px; padding: 20px; border-width: 2px; }
+.contact-card .icon-wrapper { font-size: 2.5rem; color: #00aaff; margin-right: 20px; }
+.contact-card .contact-info h3 { margin-bottom: 5px; color: #ffffff; }
+.contact-card .contact-info p { font-size: 0.9rem; color: #a0a0a0; }
+.section-subheadline { font-size: 1.2rem; color: #c0c0c0; max-width: 600px; margin-top: -20px; margin-bottom: 50px; }
+.portfolio-grid { max-width: 1200px; margin: 0 auto; }
+.zoom-overlay { position: relative; width: 100%; height: 250px; overflow: hidden; cursor: pointer; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.zoom-overlay img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.zoom-overlay:hover img { transform: scale(1.15); }
+.overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(22, 33, 62, 0.85); color: white;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0;
+    transition: opacity 0.5s ease; text-align: center; padding: 20px;
+}
+.zoom-overlay:hover .overlay { opacity: 1; }
+.overlay h3 { margin-bottom: 10px; font-size: 1.6rem; }
+
+/* ==================================
+   8. FOOTER
+   ================================== */
+footer {
+    background-color: #16213e;
+    color: #a0a0a0; /* Warna teks sedikit lebih redup */
+    padding: 30px 20px; /* Tambahkan sedikit padding vertikal */
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+}
+
+footer p {
+    background-color: transparent !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==================================
+   9. RESPONSIVENESS
+   ================================== */
+@media (max-width: 820px) {
+    .hero { flex-direction: column; text-align: center; }
+    .hero-left, .hero-right { padding: 0; margin-bottom: 40px; }
+    .hero-left { order: 2; }
+    .hero-right { order: 1; margin-bottom: 20px; }
+    .hero-left .bio-summary { margin-left: auto; margin-right: auto; }
+    .hero-buttons { justify-content: center; }
+}
+@media (max-width: 480px) {
+    .hero-left h1 { font-size: 2.5rem; }
+    .hero-left h2 { font-size: 1.5rem; }
+    .hero-buttons { flex-direction: column; gap: 15px; }
+}
+/* ==================================
+   CONTACT SECTION - IKON NEOMORPHIC
+   ================================== */
+.contact-container {
+    display: flex; /* <-- KUNCI UTAMA untuk membuat layout 2 kolom */
+    flex-wrap: wrap; 
+    gap: 150px; 
+    width: 100%;
+    max-width: 1100px; /* Batasi lebar total */
+    margin: auto; /* Pusatkan di tengah section */
+}
+
+.contact-left {
+    flex: 1; /* Biarkan kolom kiri mengisi ruang */
+    min-width: 300px;
+}
+
+.contact-left .section-subheadline {
+    text-align: left;
+    max-width: 450px; /* <-- Batasi lebar agar lebih mudah dibaca */
+    margin-top: 20px; /* <-- Beri jarak dari judul aurora */
+    margin-bottom: 40px; /* Jarak ke tombol ikon */
+    color: #a0a0a0; /* Sedikit redup untuk hierarki visual */
+    line-height: 1.7; /* Sedikit lebih renggang untuk kenyamanan membaca */
+    font-size: 1.1rem;
+}
+
+.contact-right {
+    flex: 1.5;
+    min-width: 320px;
+    padding: 3px; /* <-- Ubah: Padding kecil untuk ruang border */
+    border-radius: 22px; /* Sedikit lebih besar dari form */
+    position: relative;
+    background: linear-gradient(135deg, #00aaff, #962fbf); /* Gradien untuk border */
+    
+    display: flex; /* Biarkan ini untuk menengahkan form */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-form {
+    width: 100%;
+    padding: 40px;
+    background-color: #1a1a2e; /* Warna solid di dalam border */
+    border-radius: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #2a3a60; /* Garis batas lebih terlihat */
+    border-radius: 8px;
+    background: #1a1a2e; /* Background input lebih solid */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ==================================
+   ANDREAS STORM VOLTAGE BUTTON (FIXED SIZE)
+   ================================== */
+
+/* Wrapper untuk tombol dan efek SVG */
+.voltage-button-wrapper {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Tombol utama dengan UKURAN PASTI */
+.voltage-button {
+    color: white;
+    background: #0D1127;
+    border-radius: 5rem;
+    border: 3px solid #5978F3;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.075em;
+    transition: background 0.3s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+
+    /* === KUNCI PERBAIKAN UKURAN 1 === */
+    width: 15rem; /* Ukuran lebar tombol dibuat pasti */
+    height: 4rem; /* Ukuran tinggi tombol dibuat pasti */
+    padding: 0; /* Hapus padding agar ukuran pas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Efek hover pada tombol */
+.voltage-button-wrapper:hover .voltage-button {
+    background: #0F1C53;
+}
+.voltage-button-wrapper:hover .voltage-svg,
+.voltage-button-wrapper:hover .voltage-dots {
+    opacity: 1;
+}
+
+/* Kontainer SVG dengan UKURAN PASTI */
+.voltage-svg {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    transition-delay: 0.1s;
+    z-index: 2;
+
+    /* === KUNCI PERBAIKAN UKURAN 2 === */
+    /* Ukuran SVG dibuat sedikit lebih besar dari tombol, tapi tetap pasti */
+    width: 16rem; 
+    height: 5rem;
+    /* Posisikan SVG tepat di tengah wrapper */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Jalur listrik di dalam SVG (tetap sama) */
+.voltage-line {
+    stroke-dasharray: 100;
+    filter: url('#glow');
+}
+.voltage-line.line-1 {
+    stroke: #f6de8d;
+    stroke-dashoffset: 0;
+    animation: spark-1 3s linear infinite;
+}
+.voltage-line.line-2 {
+    stroke: #6bfeff;
+    stroke-dashoffset: 500;
+    animation: spark-2 3s linear infinite;
+}
+
+/* Partikel percikan (tetap sama) */
+.voltage-dots {
+    opacity: 0;
+    transition: opacity 0.3s;
+    transition-delay: 0.4s;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+.voltage-dots .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: white;
+    border-radius: 100%;
+    position: absolute;
+    opacity: 0;
+}
+.dot-1 { top: 0; left: 20%; animation: fly-up 3s linear infinite; }
+.dot-2 { top: 0; left: 55%; animation: fly-up 3s linear infinite 0.5s; }
+.dot-3 { top: 0; left: 80%; animation: fly-up 3s linear infinite 1s; }
+.dot-4 { bottom: 0; left: 30%; animation: fly-down 3s linear infinite 2.5s; }
+.dot-5 { bottom: 0; left: 65%; animation: fly-down 3s linear infinite 1.5s; }
+
+/* Keyframes untuk animasi (tetap sama) */
+@keyframes spark-1 {
+    to { stroke-dashoffset: -1000; }
+}
+@keyframes spark-2 {
+    to { stroke-dashoffset: -500; }
+}
+@keyframes fly-up {
+    0% { opacity:0; transform:translateY(0) scale(0.2); }
+    5% { opacity:1; transform:translateY(-1.5rem) scale(0.4);}
+    10%, 100%{ opacity:0; transform:translateY(-3rem) scale(0.2);}
+}
+@keyframes fly-down {
+    0% { opacity:0; transform:translateY(0) scale(0.2); }
+    5% { opacity:1; transform:translateY(1.5rem) scale(0.4);}
+    10%, 100%{ opacity:0; transform:translateY(3rem) scale(0.2);}
+}
+
+.contact-social-icons {
+    display: flex;
+    flex-direction: column; /* <-- KUNCI: Membuat ikon tersusun vertikal */
+    align-items: flex-start; /* <-- Pastikan ikon rata kiri */
+    gap: 20px; /* Jarak antar tombol ikon vertikal */
+    list-style: none;
+    margin-top: 30px;
+}
+
+.contact-social-icons li {
+    position: relative;
+}
+/* Style Tooltip (tidak berubah) */
+.contact-social-icons li::after {
+    position: absolute; content: attr(data-tooltip); inset: -2.8rem auto auto 50%;
+    z-index: 10; translate: -50%; padding: 0.25rem 0.75rem; font-size: 0.875rem;
+    color: #fff; background: var(--bg, #070707); border-radius: 0.25rem; opacity: 0;
+    visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.47, 2, 0.41, 1.5);
+}
+.contact-social-icons li:has(a:hover, a:focus-visible)::after {
+    opacity: 1; visibility: visible; inset-block-start: -3.2rem;
+}
+
+/* === Tombol Ikon Neomorphic (REVISI) === */
+.icon-btn-wrapper {
+    --width: 250px; --height: 55px; --padding: 6px;
+    --border-radius: 27.5px;
+    --dot-size: 10px;
+    --btn-color: #e4e4e4;
+    --animation-duration: 1.5s;
+
+    position: relative; display: flex; align-items: center; justify-content: center;
+    width: var(--width); height: var(--height); border-radius: var(--border-radius);
+    background-color: #00000008;
+    box-shadow: 1px 1px 2px 0 #ffffff50, 2px 2px 2px #0001 inset, 2px 2px 4px #0001 inset, 2px 2px 8px #0001 inset;
+    perspective: 150px; user-select: none; z-index: 1; text-decoration: none;
+}
+.icon-btn {
+    display: flex; align-items: center; justify-content: flex-start;
+    padding-left: 20px; 
+    font-size: 1.75rem;
+    color: #e0e0e0;
+    width: calc(100% - 2 * var(--padding)); height: calc(100% - 2 * var(--padding));
+    border-radius: calc(var(--border-radius) - var(--padding));
+    border: none; cursor: pointer;
+    background: linear-gradient(#1f2b4c, #16213e); /* Tetap ini */
+    box-shadow: 1px 1px 2px -1px #fff1 inset, 0 2px 1px #00000020, 0 4px 2px #00000020, 0 8px 4px #00000020, 0 16px 8px #00000020, 0 32px 16px #00000020;
+    transition: all 0.25s ease;
+    will-change: transform, filter, color;
+    z-index: 2;
+}
+
+.icon-btn::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 75px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease; 
+    pointer-events: none; 
+}
+
+.icon-btn-wrapper .dot {
+    --hue: var(--hue); /* <-- Ubah: Pastikan menggunakan --hue dari <li> */
+    position: absolute; top: calc(50% - var(--dot-size) / 2);
+    right: 20px; 
+    width: var(--dot-size); aspect-ratio: 1 / 1;
+    border-radius: 50%; background-color: hsla(var(--hue), 0%, 50%, 0.1);
+    border: 1px solid hsla(var(--hue), 0%, 60%, 0.6); box-sizing: border-box;
+    box-shadow: 1px 1px 2px -1px #fffe inset, 0 2px 1px #00000010, 0 4px 2px #00000010, 0 8px 4px #00000010;
+    pointer-events: none; z-index: 3;
+}
+.icon-btn-wrapper .dot::after {
+    content: ""; position: absolute; top: calc(var(--padding) / -2); left: calc(var(--padding) / -2);
+    width: calc(100% + var(--padding)); height: calc(100% + var(--padding));
+    border-radius: inherit; background-color: #0000;
+    box-shadow: 0 0 5px 1px hsla(var(--hue), 80%, 50%, 0.3), 0 0 10px 5px hsla(var(--hue), 80%, 50%, 0.5), 0 0 25px 10px hsla(var(--hue), 80%, 50%, 0.5), 0 0 8px 1px hsla(var(--hue), 100%, 60%, 0.9) inset;
+    opacity: 0;
+}
+
+/* Keyframes tetap sama, tidak perlu diubah */
+@keyframes bg-anim { 0%, 100% { background-color: hsla(var(--hue), 50%, 50%, 0); } 50% { background-color: hsla(var(--hue), 100%, 50%, 1); } }
+@keyframes opacity-anim { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+.icon-btn-wrapper:hover .icon-btn {
+    filter: drop-shadow(var(--padding) 0 var(--padding) hsla(var(--hue), 70%, 60%, 0.6));
+    transform: translate3d(0, -2px, 2px);
+    color: #fff;
+    background: var(--bg);
+    color: #fff;
+}
+
+.icon-btn-wrapper:hover .icon-btn::after {
+    color: #fff; 
+}
+
+.icon-btn-wrapper:hover .pulse.dot { animation: none; background-color: hsla(var(--hue), 100%, 50%, 1); }
+.icon-btn-wrapper:hover .pulse.dot::after { animation: none; opacity: 1; }
+
+.icon-btn-wrapper .dot {
+    --hue: 195deg;
+    position: absolute; top: calc(50% - var(--dot-size) / 2);
+    right: 12px; /* Sesuaikan posisi dot */
+    width: var(--dot-size); aspect-ratio: 1 / 1;
+    border-radius: 50%; background-color: hsla(var(--hue), 0%, 50%, 0.1);
+    border: 1px solid hsla(var(--hue), 0%, 60%, 0.6); box-sizing: border-box;
+    box-shadow: 1px 1px 2px -1px #fffe inset, 0 2px 1px #00000010, 0 4px 2px #00000010, 0 8px 4px #00000010;
+    pointer-events: none; z-index: 3;
+}
+.icon-btn-wrapper .dot::after {
+    content: ""; position: absolute; top: calc(var(--padding) / -2); left: calc(var(--padding) / -2);
+    width: calc(100% + var(--padding)); height: calc(100% + var(--padding));
+    border-radius: inherit; background-color: #0000;
+    box-shadow: 0 0 5px 1px hsla(var(--hue), 80%, 50%, 0.3), 0 0 10px 5px hsla(var(--hue), 80%, 50%, 0.5), 0 0 25px 10px hsla(var(--hue), 80%, 50%, 0.5), 0 0 8px 1px hsla(var(--hue), 100%, 60%, 0.9) inset;
+    opacity: 0;
+}
+.icon-btn-wrapper .pulse.dot { animation: bg-anim var(--animation-duration) ease-in-out infinite; }
+.icon-btn-wrapper .pulse.dot::after { animation: opacity-anim var(--animation-duration) ease-in-out infinite; }
+/* Keyframes tetap sama, tidak perlu diubah */
+
+.icon-btn-wrapper:hover .pulse.dot { animation: none; background-color: hsla(var(--hue), 100%, 50%, 1); }
+.icon-btn-wrapper:hover .pulse.dot::after { animation: none; opacity: 1; }
+
+/* === Kembalikan Tombol KIRIM PESAN ke Style Simpel === */
+.contact-form .btn-wrapper { /* Hapus style neomorphic dari sini */
+    margin-top: 30px; width:100%;
+}
+.contact-form .btn { /* Gunakan style cta-button primary */
+    width: 100%; height: 50px; border-radius: 8px; font-weight: 600;
+    background-color: #00aaff; color: #ffffff; cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.7); transition: all 0.3s ease;
+}
+.contact-form .btn .btn-txt { /* Pastikan teks terlihat */
+    color: white; background: none; filter: none;
+}
+.contact-form .btn:hover {
+    background-color: #008ecc; transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(0, 170, 255, 1);
+}
+
+/* ==================================
+   AURORA TEXT EFFECT (VERSI FINAL & BENAR)
+   ================================== */
+
+#contact .aurora-wrapper {
+    /* Wrapper sekarang hanya untuk penataan */
+    margin-bottom: 20px;
+}
+
+#contact .aurora-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left; /* Pastikan rata kiri */
+    
+    /* KUNCI UTAMA: Teks menjadi transparan */
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Latar belakangnya adalah gradien warna-warni yang besar */
+    background-image: linear-gradient(
+        110deg,
+        #962fbf, /* Ungu */
+        #d62976, /* Magenta */
+        #4f5bd5, /* Biru Tua */
+        #00aaff, /* Biru Neon */
+        #962fbf, /* Kembali ke Ungu untuk loop yang mulus */
+        #d62976
+    );
+    background-size: 200% 200%; /* Buat background lebih besar dari teksnya */
+    
+    /* Menerapkan animasi pergerakan background */
+    animation: aurora-pan 4s linear infinite;
+}
+
+/* Defenisi animasi untuk menggerakkan posisi background */
+@keyframes aurora-pan {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}section#contact {
+    min-height: auto;
 }
