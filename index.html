@@ -13,7 +13,7 @@
 <body>
 
     <div class="preloader">
-        <div class="loader-text">LOADING...</div>
+        <div class="loader-text">WELCOME TO MY WEBSITE...</div>
     </div>
 
     <header>
@@ -171,22 +171,23 @@
                 </div>
 
                 <div class="contact-right">
-                    <form action="#" class="contact-form">
+                    <form id="contact-form" class="contact-form" action="#">
                         <div class="form-group">
-                            <label for="name">Nama*</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="form-name">Nama*</label>
+                            <input type="text" id="form-name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email*</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="form-email">Email*</label>
+                            <input type="email" id="form-email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Nama Perusahaan*</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="form-company">Nama Perusahaan*</label>
+                            <input type="text" id="form-company" name="company" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Pesan*</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="form-message">Pesan*</label>
+                            <textarea id="form-message" name="message" rows="5" required></textarea>
+                            <div id="char-counter" class="char-counter"></div>
                         </div>
 
                         <div class="voltage-button-wrapper">
@@ -201,8 +202,8 @@
                                     <feGaussianBlur class="blur" result="coloredBlur" stdDeviation="2"></feGaussianBlur>
                                     <feTurbulence type="fractalNoise" baseFrequency="0.075" numOctaves="0.3"
                                         result="turbulence"></feTurbulence>
-                                    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="4" 
-                                    xChannelSelector="R" yChannelSelector="G" result="displace"></feDisplacementMap>
+                                    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="4"
+                                        xChannelSelector="R" yChannelSelector="G" result="displace"></feDisplacementMap>
                                     <feMerge>
                                         <feMergeNode in="coloredBlur"></feMergeNode>
                                         <feMergeNode in="coloredBlur"></feMergeNode>

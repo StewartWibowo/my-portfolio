@@ -50,12 +50,32 @@ h2 {
 }
 .preloader.fade-out { opacity: 0; visibility: hidden; }
 .loader-text { font-size: 3rem; font-weight: bold; color: rgba(255, 255, 255, 0.2); position: relative; }
-.loader-text::before {
-    content: 'LOADING...'; position: absolute; top: 0; left: 0;
-    width: 0; height: 100%; color: #00aaff; overflow: hidden;
-    animation: fill-text 2.5s ease-in-out infinite;
+
+.loader-text {
+    font-size: 3rem;
+    font-weight: bold;
+    position: relative;
+
+    /* 1. Teks dibuat transparan */
+    color: transparent;
+
+    /* 2. Warna teks diambil dari background gradien */
+    background-image: linear-gradient(to right, #00aaff 50%, rgba(255, 255, 255, 0.2) 50%);
+    background-size: 200% auto;
+    background-position: 100% 0; /* Mulai dari posisi "belum terisi" */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* 3. Terapkan animasi baru */
+    animation: text-fill-animation 3s ease-in-out infinite alternate;
 }
-@keyframes fill-text { 0%, 100% { width: 0; } 50% { width: 100%; } }
+
+/* Tambahkan @keyframes baru ini di akhir file CSS Anda */
+@keyframes text-fill-animation {
+    to {
+        background-position: 0% 0; /* Bergerak ke posisi "terisi penuh" */
+    }
+}
 
 /* ==================================
    3. HEADER & NAVIGATION
@@ -652,4 +672,17 @@ footer p {
     }
 }section#contact {
     min-height: auto;
+}
+
+/* === STYLE UNTUK PENGHITUNG KARAKTER === */
+.char-counter {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin-top: 8px;
+    text-align: right;
+    height: 20px; 
+}
+.char-counter.limit-reached {
+    color: #ff6b6b; 
+    font-weight: 500;
 }
