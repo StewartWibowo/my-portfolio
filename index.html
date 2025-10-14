@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="./CSS/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/55248b6cb5.js" crossorigin="anonymous"></script>
+    <script type="importmap">{
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }}
+    </script>
 </head>
 
 <body>
@@ -31,28 +37,32 @@
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-left">
-                <p class="greeting">Halo, saya</p>
-                <h1>Stewart Wibowo</h1>
-                <h2>Data Science & AI Enthusiast | Music Instructor (Violin & Piano)</h2>
-                <p class="bio-summary">
-                    Lulusan Teknik Informatika yang memiliki ketertarikan mendalam pada pengembangan teknologi berbasis
-                    Data Science dan AI, dengan fokus pada pembelajaran mesin dan analisis data.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="cta-button primary shine-button">
-                        Hubungi Saya
-                        <span class="shine-effect"></span>
-                    </a>
-                    <a href="path/to/your/cv.pdf" download class="cta-button secondary shine-on-hover">
-                        Download CV
-                        <span class="shine-effect"></span>
-                    </a>
+            <canvas id="hero-background-canvas"></canvas>
+            <div class="hero-content-wrapper">
+                <div class="hero-left">
+                    <p class="greeting">Halo, saya</p>
+                    <h1>Stewart Wibowo</h1>
+                    <h2>Data Science & AI Enthusiast | Music Instructor (Violin & Piano)</h2>
+                    <p class="bio-summary">
+                        Lulusan Teknik Informatika yang memiliki ketertarikan mendalam pada pengembangan teknologi
+                        berbasis
+                        Data Science dan AI, dengan fokus pada pembelajaran mesin dan analisis data.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="cta-button primary shine-button">
+                            Hubungi Saya
+                            <span class="shine-effect"></span>
+                        </a>
+                        <a href="path/to/your/cv.pdf" download class="cta-button secondary shine-on-hover">
+                            Download CV
+                            <span class="shine-effect"></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="hero-right">
-                <img src="images/myphoto.png" alt="Foto profil Stewart Wibowo">
+                <div class="hero-right">
+                    <img src="images/myphoto.png" alt="Foto profil Stewart Wibowo">
+                </div>
             </div>
         </section>
 
@@ -121,53 +131,48 @@
                         dan mulai percakapan!
                     </p>
 
-                    <ul class="contact-social-icons">
-                        <li data-tooltip="089675902791" style="--bg: #25D366; --hue: 135deg;">
-                            <a href="https://wa.me/6289675902791" target="_blank" aria-label="WhatsApp"
-                                class="icon-btn-wrapper">
-                                <div class="icon-btn" data-label="WhatsApp">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </div>
-                                <div class="dot pulse"></div>
-                            </a>
-                        </li>
-                        <li data-tooltip="stewartwibowo32@gmail.com" style="--bg: #c71610; --hue: 3deg;">
-                            <a href="mailto:stewartwibowo32@gmail.com?subject=Pesan dari Portofolio" aria-label="Email"
-                                class="icon-btn-wrapper">
-                                <div class="icon-btn" data-label="Email">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-                                <div class="dot pulse"></div>
-                            </a>
-                        </li>
-                        <li data-tooltip="@XGenFight" style="--bg: #2AABEE; --hue: 199deg;">
-                            <a href="https://t.me/XGenFight" target="_blank" aria-label="Telegram"
-                                class="icon-btn-wrapper">
-                                <div class="icon-btn" data-label="Telegram">
-                                    <i class="fa-brands fa-telegram"></i>
-                                </div>
-                                <div class="dot pulse"></div>
-                            </a>
-                        </li>
-                        <li data-tooltip="@xgenfight" style="--bg: #d62976; --hue: 327deg;">
-                            <a href="https://instagram.com/xgenfight" target="_blank" aria-label="Instagram"
-                                class="icon-btn-wrapper">
-                                <div class="icon-btn" data-label="Instagram">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </div>
-                                <div class="dot pulse"></div>
-                            </a>
-                        </li>
-                        <li data-tooltip="Stewartwibowo" style="--bg: #181717; --hue: 240deg;">
-                            <a href="https://github.com/StewartWibowo/" target="_blank" aria-label="GitHub"
-                                class="icon-btn-wrapper">
-                                <div class="icon-btn" data-label="Github">
-                                    <i class="fa-brands fa-github"></i>
-                                </div>
-                                <div class="dot pulse"></div>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="contact-social-buttons">
+                        <a href="https://wa.me/6289675902791" target="_blank" class="social-btn-wrapper"
+                            style="--hue: 135deg; --bg: #25D366;" data-tooltip="089675902791">
+                            <button class="social-btn">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span class="btn-txt">WhatsApp</span>
+                            </button>
+                            <div class="dot pulse"></div>
+                        </a>
+                        <a href="mailto:stewartwibowo32@gmail.com?subject=Pesan dari Portofolio"
+                            class="social-btn-wrapper" style="--hue: 3deg; --bg: #c71610;" data-tooltip="stewartwibowo32@gmail.com">
+                            <button class="social-btn">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span class="btn-txt">Email</span>
+                            </button>
+                            <div class="dot pulse"></div>
+                        </a>
+                        <a href="https://t.me/XGenFight" target="_blank" class="social-btn-wrapper"
+                            style="--hue: 199deg; --bg: #2AABEE;" data-tooltip="XGenFight">
+                            <button class="social-btn">
+                                <i class="fa-brands fa-telegram"></i>
+                                <span class="btn-txt">Telegram</span>
+                            </button>
+                            <div class="dot pulse"></div>
+                        </a>
+                        <a href="https://instagram.com/xgenfight" target="_blank" class="social-btn-wrapper"
+                            style="--hue: 327deg; --bg: #d62976;" data-tooltip="xgenfight">
+                            <button class="social-btn">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span class="btn-txt">Instagram</span>
+                            </button>
+                            <div class="dot pulse"></div>
+                        </a>
+                        <a href="https://github.com/StewartWibowo/" target="_blank" class="social-btn-wrapper"
+                            style="--hue: 240deg; --bg: #181717;" data-tooltip="github.com/StewartWibowo">
+                            <button class="social-btn">
+                                <i class="fa-brands fa-github"></i>
+                                <span class="btn-txt">GitHub</span>
+                            </button>
+                            <div class="dot pulse"></div>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="contact-right">
@@ -200,7 +205,7 @@
                                 preserveAspectRatio="none">
                                 <filter id="glow">
                                     <feGaussianBlur class="blur" result="coloredBlur" stdDeviation="2"></feGaussianBlur>
-                                    <feTurbulence type="fractalNoise" baseFrequency="0.075" numOctaves="0.3"
+                                    <feTurbulence type="fractalNoise" baseFrequency="0.075" numOctaves="1"
                                         result="turbulence"></feTurbulence>
                                     <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="4"
                                         xChannelSelector="R" yChannelSelector="G" result="displace"></feDisplacementMap>
@@ -237,6 +242,7 @@
         <p>&copy; 2025 Stewart Wibowo. All Rights Reserved.</p>
     </footer>
 
+    <script type="module" src="./JS/background3D.js"></script>
     <script src="./JS/script.js"></script>
 </body>
 

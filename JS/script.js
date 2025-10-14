@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
     if (preloader) {
         setTimeout(() => {
             preloader.classList.add('fade-out');
-        }, 2010);
+        }, 2000); // Delay 2 detik
     }
 
     // --- Bagian Animasi Navigasi ---
@@ -91,8 +91,9 @@ window.addEventListener('load', () => {
         const messageInput = document.getElementById('form-message');
         const charCounter = document.getElementById('char-counter');
         const limit = 2000;
-        const phoneNumber = '6289675902791';
+        const phoneNumber = '6289675902791'; // Ganti dengan nomor Anda
 
+        // Template dasar pesan (hanya teks, tanpa nilai input)
         const baseTemplate = `
 *Pesan dari Website Portofolio*
 
