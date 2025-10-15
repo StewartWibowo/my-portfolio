@@ -42,27 +42,26 @@ const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 // =======================================================
 
-// 2. Buat Konten Timeline (sebagai objek 3D)
-const timelineItems = [];
-const itemPositions = [-10, -5, 0, 5, 10]; // Posisi Z untuk setiap item
+// 2. Buat Konten Timeline (TITIK BERCAHAYA)
+const timelineEvents = [
+    { year: 2019, label: "Mulai Kuliah", zPos: 15 },
+    { year: 2022, label: "Asisten Lab", zPos: 5 },
+    { year: 2020, label: "Instruktur Musik", zPos: -5 },
+    { year: 2023, label: "Fokus Data & AI", zPos: -15 }
+];
 
-itemPositions.forEach((zPos, index) => {
-    // Setiap item adalah sebuah Plane (bidang datar)
-    const geometry = new THREE.PlaneGeometry(4, 2); 
-    
-    // Tekstur: Di sini Anda akan memuat gambar/teks untuk setiap kartu
-    // Untuk contoh, kita gunakan warna saja
-    const material = new THREE.MeshBasicMaterial({ 
-        color: new THREE.Color(`hsl(${index * 60}, 100%, 75%)`) 
+timelineEvents.forEach(event => {
+    const sphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);
+    // Warna dasar material dibuat sedikit gelap agar efek bloom lebih terlihat
+    const sphereMaterial = new THREE.MeshStandardMaterial({
+        color: 0xff44ff,
+        emissive: 0xff44ff, // Warna cahaya yang dipancarkan
+        emissiveIntensity: 2
     });
-    
-    const item = new THREE.Mesh(geometry, material);
-    
-    // Posisikan kartu di dunia 3D (sedikit ke samping dan di kedalaman z)
-    item.position.set(index % 2 === 0 ? -2 : 2, 0, zPos);
-    
-    scene.add(item);
-    timelineItems.push(item);
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.set(0, 0, event.zPos);
+    sphere.userData = { year: event.year, label: event.label };
+    scene.add(sphere);
 });
 
 
