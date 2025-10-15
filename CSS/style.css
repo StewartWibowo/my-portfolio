@@ -6,9 +6,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(-45deg, #1a1a2e, #16213e, #2a3a60, #16213e);
@@ -17,74 +19,177 @@ body {
     color: #e0e0e0;
     line-height: 1.6;
 }
+
 @keyframes background-pan {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
+
 img {
     max-width: 100%;
     height: auto;
     display: block;
 }
+
 h2 {
     font-size: 2.5rem;
     margin-bottom: 40px;
     color: #ffffff;
     text-transform: uppercase;
 }
+
 main {
-    flex-grow: 1; /* Dihapus dari body agar tidak konflik */
+    flex-grow: 1;
+    /* Dihapus dari body agar tidak konflik */
 }
 
 /* ==================================
    2. PRELOADER
    ================================== */
 .preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #1a1a2e; display: flex; justify-content: center;
-    align-items: center; z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
     transition: opacity 0.75s ease, visibility 0.75s ease;
 }
-.preloader.fade-out { opacity: 0; visibility: hidden; }
+
+.preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .loader-text {
-    font-size: 3rem; font-weight: bold; position: relative; color: transparent;
+    font-size: 3rem;
+    font-weight: bold;
+    position: relative;
+    color: transparent;
     background-image: linear-gradient(to right, #00aaff 50%, rgba(255, 255, 255, 0.2) 50%);
     background-size: 200% auto;
     background-position: 100% 0;
-    -webkit-background-clip: text; background-clip: text;
+    -webkit-background-clip: text;
+    background-clip: text;
     animation: text-fill-animation 3s ease-in-out infinite;
 }
+
 @keyframes text-fill-animation {
-    from { background-position: 100% 0; }
-    to { background-position: 0% 0; }
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: 0% 0;
+    }
 }
 
 /* ==================================
-   3. HEADER & NAVIGATION
-   ================================== */
+   3. HEADER & NAVIGATION (VERSI FINAL)
+   ================================== */
 header {
-    position: absolute; top: 0; left: 0; width: 100%;
-    padding: 1rem 5%; z-index: 999;
-    background: transparent; box-shadow: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    z-index: 999;
+    background: transparent;
+    box-shadow: none;
     transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
-header.scrolled { background: #16213e; position: fixed; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); }
-nav { display: flex; justify-content: space-between; align-items: center; }
-nav .logo { font-size: 1.8rem; font-weight: 700; color: #ffffff; }
-nav ul { list-style: none; display: flex; position: relative; }
-nav ul li { margin-left: 25px; }
-nav ul li a {
-    text-decoration: none; color: #e0e0e0; font-size: 1rem;
-    font-weight: 600; transition: color 0.3s ease;
-    position: relative; z-index: 1; padding: 10px 15px;
+
+header.scrolled {
+    background: #16213e;
+    position: fixed;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- PENENTU KONDISI AWAL (SEBELUM ANIMASI) --- */
+nav .logo,
+nav ul li a {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+/* --- Styling Dasar untuk Logo & Navigasi --- */
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    position: relative;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    padding: 10px 15px;
+}
+
+
+/* === KELAS PEMICU DARI JS SETELAH PRELOADER HILANG === */
+header.show-animate .logo,
+header.show-animate nav ul li a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+header.show-animate .logo {
+    transition-delay: 0.3s;
+    /* Delay untuk logo */
+}
+
+header.show-animate nav ul li a {
+    transition-delay: calc(0.3s + 0.1s * var(--i));
+    /* Delay berurutan untuk link nav */
+}
+
+
+/* --- Styling Efek Hover dan Underline --- */
 .glowing-text:hover {
     color: #fff;
     text-shadow: 0 0 7px #00aaff, 0 0 10px #00aaff, 0 0 21px #00aaff, 0 0 42px #00aaff;
 }
+
 #nav-sparkle-underline {
-    position: absolute; bottom: -5px; left: 0; height: 4px; border-radius: 2px;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 4px;
+    border-radius: 2px;
     background: linear-gradient(90deg, #00aaff, #80d4ff, white);
     box-shadow: 0 0 8px #00aaff, 0 0 15px #00aaff, 0 0 25px rgba(0, 170, 255, 0.7);
     transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
@@ -94,20 +199,33 @@ nav ul li a {
    4. SECTION LAYOUTS
    ================================== */
 .hero {
-    position: relative; overflow: hidden; display: flex;
-    justify-content: center; align-items: center;
-    min-height: 100vh; width: 100%;
-    padding: 0 20px; box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
     scroll-margin-top: 80px;
 }
+
 .content-section {
-    min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
-    padding: 80px 20px; box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    box-sizing: border-box;
     scroll-margin-top: 80px;
 }
+
 #contact.content-section {
-    display: block; text-align: left; 
+    display: block;
+    text-align: left;
     background-color: #16213e;
     min-height: auto;
 }
@@ -116,27 +234,78 @@ nav ul li a {
    5. HERO SECTION CONTENT & 3D BACKGROUND
    ================================== */
 #hero-background-canvas {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; z-index: 1; 
-}
-.hero-content-wrapper {
-    position: relative; z-index: 2; display: flex;
-    align-items: center; gap: 40px; width: 100%; max-width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-.hero-left, .hero-right {
+.hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hero-left,
+.hero-right {
     pointer-events: auto;
 }
 
-.hero-left { flex: 1; min-width: 300px; }
-.hero-left .greeting { font-size: 1.2rem; color: #c0c0c0; margin-bottom: 5px; }
-.hero-left h1 { font-size: 3.5rem; color: white; margin-bottom: 10px; line-height: 1.1; font-weight: 700; }
-.hero-left h2 { font-size: 2rem; color: #00aaff; margin-bottom: 25px; font-weight: 500; }
-.hero-left .bio-summary { font-size: 1.1rem; color: #a0a0a0; margin-bottom: 40px; max-width: 500px; line-height: 1.6; }
-.hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
-.hero-right { flex-basis: 400px; text-align: center; position: relative; }
+.hero-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.hero-left .greeting {
+    font-size: 1.2rem;
+    color: #c0c0c0;
+    margin-bottom: 5px;
+}
+
+.hero-left h1 {
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.hero-left h2 {
+    font-size: 2rem;
+    color: #00aaff;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.hero-left .bio-summary {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-bottom: 40px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-right {
+    flex-basis: 400px;
+    text-align: center;
+    position: relative;
+}
+
 .hero-right img {
-    border-radius: 50%; border: 5px solid #00aaff;
+    border-radius: 50%;
+    border: 5px solid #00aaff;
     box-shadow: 0 0 20px rgba(0, 170, 255, 0.8), 0 0 40px rgba(0, 170, 255, 0.5);
     margin: auto;
 }
@@ -145,108 +314,392 @@ nav ul li a {
    6. BUTTONS
    ================================== */
 .cta-button {
-    padding: 14px 30px; border-radius: 8px; text-decoration: none;
-    font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
-    border: none; cursor: pointer;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
+
 .cta-button.secondary {
-    background-color: transparent; color: #00aaff; border: 2px solid #00aaff;
+    background-color: transparent;
+    color: #00aaff;
+    border: 2px solid #00aaff;
     box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
 }
-@keyframes shine-sweep { from { transform: translateX(-100%) skewX(-20deg); } to { transform: translateX(200%) skewX(-20deg); } }
+
+@keyframes shine-sweep {
+    from {
+        transform: translateX(-100%) skewX(-20deg);
+    }
+
+    to {
+        transform: translateX(200%) skewX(-20deg);
+    }
+}
+
 .shine-button {
-    position: relative; overflow: hidden;
+    position: relative;
+    overflow: hidden;
     background-image: linear-gradient(120deg, hsl(217, 100%, 56%) 0%, hsl(194, 100%, 69%) 55%, hsl(217, 100%, 56%) 90%);
-    background-size: 250% auto; background-position: left center; color: white;
+    background-size: 250% auto;
+    background-position: left center;
+    color: white;
     box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
     transition: background-position 0.8s ease-in-out, transform 0.2s ease;
 }
-.shine-button:hover { background-position: right center; }
+
+.shine-button:hover {
+    background-position: right center;
+}
+
 .shine-button .shine-effect {
-    position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
     transform: translateX(-100%) skewX(-20deg);
 }
-.shine-button:hover .shine-effect { animation: shine-sweep 0.8s ease-in-out; }
-.shine-button:active { transform: scale(0.95); }
 
-.shine-on-hover { position: relative; overflow: hidden; }
-.shine-on-hover:hover {
-    color: white; border-color: transparent;
-    background-image: linear-gradient(120deg, hsl(217, 100%, 56%) 0%, hsl(194, 100%, 69%) 55%, hsl(217, 100%, 56%) 90%);
-    background-size: 250% auto; background-position: right center;
+.shine-button:hover .shine-effect {
+    animation: shine-sweep 0.8s ease-in-out;
 }
-.shine-on-hover:hover .shine-effect { animation: shine-sweep 0.8s ease-in-out; }
+
+.shine-button:active {
+    transform: scale(0.95);
+}
+
+.shine-on-hover {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-on-hover:hover {
+    color: white;
+    border-color: transparent;
+    background-image: linear-gradient(120deg, hsl(217, 100%, 56%) 0%, hsl(194, 100%, 69%) 55%, hsl(217, 100%, 56%) 90%);
+    background-size: 250% auto;
+    background-position: right center;
+}
+
+.shine-on-hover:hover .shine-effect {
+    animation: shine-sweep 0.8s ease-in-out;
+}
 
 /* ==================================
-   7. ABOUT (KEAHLIAN SAYA) & PORTFOLIO
-   ================================== */
-.services { background: #16213e; }
-.card-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
-.card {
-    background: #1a1a2e; border: 1px solid #2a3a60; border-radius: 15px;
-    padding: 30px; width: 300px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-    position: relative; overflow: hidden;
-}
-.card::before {
-    content: ''; position: absolute; top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: conic-gradient(transparent, rgba(0, 170, 255, 0.2), transparent 30%);
-    animation: rotate-glow 4s linear infinite;
-    opacity: 0; transition: opacity 0.4s ease;
-}
-.card:hover::before { opacity: 1; }
-@keyframes rotate-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.card h3 { font-size: 1.5rem; color: #00aaff; margin-bottom: 15px; position: relative; z-index: 1; }
-.card p { position: relative; z-index: 1; }
+   13. EFEK GLASSY CONTAINER
+   ================================== */
+.glassy-container {
+    /* Variabel Warna: Ubah nilai --h (hue) untuk warna lain. Misal: 270 untuk ungu */
+    --h: 200;
+    --s: 90%;
+    --l: 60%;
 
-.portfolio-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; max-width: 1200px; margin: 20px auto 0; }
-.zoom-overlay { position: relative; width: 350px; height: 250px; overflow: hidden; cursor: pointer; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
-.zoom-overlay img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.zoom-overlay:hover img { transform: scale(1.15); }
-.overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(22, 33, 62, 0.85); color: white;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0;
-    transition: opacity 0.5s ease; text-align: center; padding: 20px;
+    /* Ukuran dan Tampilan */
+    padding: 40px;
+    border-radius: 1em;
+    position: relative;
+    /* Diperlukan untuk pseudo-elements */
+
+    /* Efek Kaca Utama */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+    backdrop-filter: blur(10px);
+    /* Ini yang membuat efek buram */
+
+    /* Bayangan berlapis untuk efek 3D */
+    box-shadow:
+        0 -0.125em 0.25em rgba(0, 0, 0, 0.15),
+        0 0.25em 0.25em hsl(var(--h) var(--s) var(--l) / 0.4),
+        0 0 0 1.5px hsl(var(--h) var(--s) var(--l) / 0.5),
+        0 0.175em 0.3em hsl(var(--h) var(--s) var(--l) / 0.5) inset,
+        0 -0.025em 0.175em hsl(var(--h) var(--s) var(--l) / 0.4) inset,
+        0 -0.25em 1em 0.3em hsl(var(--h) var(--s) var(--l) / 0.3) inset,
+        0 0.6em 0 hsl(var(--h) var(--s) var(--l) / 0.3) inset,
+        0 1em 1em rgba(0, 0, 0, 0.25);
 }
-.zoom-overlay:hover .overlay { opacity: 1; }
-.overlay h3 { margin-bottom: 10px; font-size: 1.6rem; }
+
+/* Efek pantulan cahaya di bawah container */
+.glassy-container:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 80%;
+    left: 10%;
+    height: 1.5em;
+    background-image:
+        radial-gradient(100% 100% at center,
+            hsla(var(--h), var(--s), 80%, 0.15),
+            hsla(var(--h), var(--s), 80%, 0) 50%);
+}
+
+/* Efek kilau cahaya di atas permukaan kaca */
+.glassy-container:after {
+    content: '';
+    inset: 0;
+    top: 0.5em;
+    position: absolute;
+    border-radius: inherit;
+    background-image:
+        linear-gradient(105deg,
+            transparent 35%,
+            hsl(var(--h) var(--s) var(--l) / .2) 45%,
+            hsl(var(--h) var(--s) var(--l) / .2) 55%,
+            transparent 65%);
+    pointer-events: none;
+}
+
+.glassy-container .bio-summary {
+    color: #e0e0e0; /* Warna dibuat lebih terang */
+    font-weight: 500; /* Sedikit lebih tebal */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Bayangan tipis untuk kontras */
+}
+
+/* ==================================
+   7. PORTFOLIO
+   ================================== */
+.portfolio-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    max-width: 1200px;
+    margin: 20px auto 0;
+}
+
+.zoom-overlay {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.zoom-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.zoom-overlay:hover img {
+    transform: scale(1.15);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(22, 33, 62, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    padding: 20px;
+}
+
+.zoom-overlay:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h3 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+/* ==================================
+   14. 3D TIMELINE SECTION
+   ================================== */
+.about-3d-timeline {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #0d0d2b; /* Warna latar belakang fallback */
+}
+
+#timeline-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.timeline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Pastikan overlay di atas canvas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    pointer-events: none; /* Agar tidak menghalangi interaksi 3D jika ada */
+}
+
+.timeline-overlay h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+.timeline-overlay .current-year {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00aaff;
+    text-shadow: 0 0 10px #00aaff;
+    margin-top: 20px;
+    pointer-events: none;
+}
+
+/* Sembunyikan scrollbar di body jika tidak diperlukan */
+body {
+    overflow-y: hidden; /* Kita akan mengontrol scroll secara manual */
+}
 
 /* ==================================
    8. CONTACT SECTION
    ================================== */
-.contact-container { display: flex; flex-wrap: wrap; gap: 80px; width: 100%; max-width: 1100px; margin: auto; }
-.contact-left { flex: 1; min-width: 300px; }
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.contact-left {
+    flex: 1;
+    min-width: 300px;
+}
+
 .contact-right {
-    flex: 1.5; min-width: 320px; padding: 3px; border-radius: 22px; position: relative;
+    flex: 1.5;
+    min-width: 320px;
+    padding: 3px;
+    border-radius: 22px;
+    position: relative;
     background: linear-gradient(135deg, #00aaff, #962fbf);
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.contact-form { width: 100%; padding: 40px; background-color: #1a1a2e; border-radius: 20px; }
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; margin-bottom: 8px; color: #e0e0e0; font-size: 0.9rem; font-weight: 500; }
-.form-group input, .form-group textarea {
-    width: 100%; padding: 12px 15px; border: 1px solid #2a3a60;
-    border-radius: 8px; background: #1a1a2e; color: white;
-    font-family: 'Poppins', sans-serif; font-size: 1rem; transition: all 0.3s ease;
+
+.contact-form {
+    width: 100%;
+    padding: 40px;
+    background-color: #1a1a2e;
+    border-radius: 20px;
 }
-.form-group input:focus, .form-group textarea:focus { outline: none; border-color: #00aaff; box-shadow: 0 0 10px rgba(0, 170, 255, 0.5); }
-.form-group textarea { resize: vertical; min-height: 120px; }
-.section-subheadline { font-size: 1.1rem; color: #a0a0a0; max-width: 450px; margin-top: 20px; margin-bottom: 40px; line-height: 1.7; text-align: left;}
-.char-counter { font-size: 0.85rem; color: #a0a0a0; margin-top: 8px; text-align: right; height: 20px; }
-.char-counter.limit-reached { color: #ff6b6b; font-weight: 500; }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #2a3a60;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.section-subheadline {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    max-width: 450px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.char-counter {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin-top: 8px;
+    text-align: right;
+    height: 20px;
+}
+
+.char-counter.limit-reached {
+    color: #ff6b6b;
+    font-weight: 500;
+}
 
 /* --- Aurora Text Effect --- */
-#contact .aurora-wrapper { margin-bottom: 20px; width: fit-content; max-width: 100%; }
+#contact .aurora-wrapper {
+    margin-bottom: 20px;
+    width: fit-content;
+    max-width: 100%;
+}
+
 #contact .aurora-text {
-    font-size: 2.5rem; font-weight: 700; text-transform: uppercase; text-align: left;
-    color: transparent; -webkit-background-clip: text; background-clip: text;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
     background-image: linear-gradient(110deg, #962fbf, #d62976, #4f5bd5, #00aaff, #962fbf, #d62976);
     background-size: 200% 200%;
     animation: aurora-pan 8s linear infinite;
 }
-@keyframes aurora-pan { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+
+@keyframes aurora-pan {
+    from {
+        background-position: 0% 0%;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
 
 /* ==================================
    CONTACT SECTION - SOCIAL BUTTONS (FINAL & BENAR)
@@ -263,52 +716,88 @@ nav ul li a {
 
 /* Wrapper untuk setiap tombol (elemen <a>) */
 .social-btn-wrapper {
-    --width: 250px; --height: 55px; --padding: 6px;
-    --border-radius: 27.5px; --dot-size: 10px;
-    --btn-color: #1f2b4c; /* Warna dasar tombol gelap */
+    --width: 250px;
+    --height: 55px;
+    --padding: 6px;
+    --border-radius: 27.5px;
+    --dot-size: 10px;
+    --btn-color: #1f2b4c;
+    /* Warna dasar tombol gelap */
     --animation-duration: 1.5s;
 
-    position: relative; display: flex; align-items: center; justify-content: center;
-    width: var(--width); height: var(--height); border-radius: var(--border-radius);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
     background-color: #00000020;
     box-shadow: 1px 1px 2px 0 #ffffff1a, 1px 1px 1px #0003 inset, 2px 2px 2px #0003 inset;
-    perspective: 150px; user-select: none; z-index: 1; text-decoration: none;
+    perspective: 150px;
+    user-select: none;
+    z-index: 1;
+    text-decoration: none;
     transition: box-shadow 50ms linear;
 }
 
 /* Tombol bagian dalam (elemen <button>) */
 .social-btn {
-    display: flex; align-items: center; justify-content: flex-start;
-    gap: 15px; text-align: left;
-    padding: 0 0 0 20px; /* Padding hanya di kiri untuk ikon */
-    width: calc(100% - 2 * var(--padding)); height: calc(100% - 2 * var(--padding));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    text-align: left;
+    padding: 0 0 0 20px;
+    /* Padding hanya di kiri untuk ikon */
+    width: calc(100% - 2 * var(--padding));
+    height: calc(100% - 2 * var(--padding));
     border-radius: calc(var(--border-radius) - var(--padding));
-    border: none; cursor: pointer;
+    border: none;
+    cursor: pointer;
     background: linear-gradient(#ffffff0a, #00000010), var(--btn-color);
     box-shadow: 1px 1px 2px -1px #fff2 inset, 0 2px 1px #00000030, 0 4px 2px #00000020, 0 8px 4px #00000020;
     transition: transform 0.25s cubic-bezier(0.25, 1.5, 0.5, 2.2), box-shadow 0.25s cubic-bezier(0.25, 1.5, 0.5, 1), filter 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
-    will-change: transform, filter; z-index: 2;
+    will-change: transform, filter;
+    z-index: 2;
 }
+
 .social-btn i {
-    font-size: 1.5rem; color: #a0a0a0; transition: color 0.3s ease;
+    font-size: 1.5rem;
+    color: #a0a0a0;
+    transition: color 0.3s ease;
 }
+
 .social-btn .btn-txt {
-    font-size: 1rem; font-weight: 500; font-family: 'Poppins', sans-serif;
-    color: #a0a0a0; transition: color 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    color: #a0a0a0;
+    transition: color 0.3s ease;
 }
 
 /* Lampu Indikator (.dot) */
 .social-btn-wrapper .dot {
-    position: absolute; top: calc(50% - var(--dot-size) / 2); right: 20px;
-    width: var(--dot-size); aspect-ratio: 1 / 1; border-radius: 50%;
+    position: absolute;
+    top: calc(50% - var(--dot-size) / 2);
+    right: 20px;
+    width: var(--dot-size);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     background-color: hsla(var(--hue), 50%, 50%, 0.1);
     border: 1px solid hsla(var(--hue), 50%, 50%, 0.6);
     box-shadow: 1px 1px 2px -1px #fffe inset, 0 2px 1px #00000010;
-    pointer-events: none; z-index: 3;
+    pointer-events: none;
+    z-index: 3;
 }
+
 .social-btn-wrapper .dot::after {
-    content: ""; position: absolute; top: calc(var(--padding) / -2); left: calc(var(--padding) / -2);
-    width: calc(100% + var(--padding)); height: calc(100% + var(--padding));
+    content: "";
+    position: absolute;
+    top: calc(var(--padding) / -2);
+    left: calc(var(--padding) / -2);
+    width: calc(100% + var(--padding));
+    height: calc(100% + var(--padding));
     border-radius: inherit;
     box-shadow: 0 0 10px 2px hsla(var(--hue), 80%, 70%, 0.5), 0 0 16px 1px hsla(var(--hue), 100%, 70%, 0.9) inset;
     opacity: 0;
@@ -316,15 +805,36 @@ nav ul li a {
 
 /* Animasi Kedip */
 @keyframes bg-anim {
-    0%, 100% { background-color: hsla(var(--hue), 50%, 50%, 0.2); }
-    50% { background-color: hsla(var(--hue), 100%, 70%, 1); }
+
+    0%,
+    100% {
+        background-color: hsla(var(--hue), 50%, 50%, 0.2);
+    }
+
+    50% {
+        background-color: hsla(var(--hue), 100%, 70%, 1);
+    }
 }
+
 @keyframes opacity-anim {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
-.social-btn-wrapper .pulse.dot { animation: bg-anim var(--animation-duration) ease-in-out infinite; }
-.social-btn-wrapper .pulse.dot::after { animation: opacity-anim var(--animation-duration) ease-in-out infinite; }
+
+.social-btn-wrapper .pulse.dot {
+    animation: bg-anim var(--animation-duration) ease-in-out infinite;
+}
+
+.social-btn-wrapper .pulse.dot::after {
+    animation: opacity-anim var(--animation-duration) ease-in-out infinite;
+}
 
 
 /* Efek Saat Hover */
@@ -333,80 +843,280 @@ nav ul li a {
     transform: translate3d(0, -2px, 2px);
     background: var(--bg);
 }
+
 .social-btn-wrapper:hover .social-btn i,
 .social-btn-wrapper:hover .social-btn .btn-txt {
     color: #fff;
 }
-.social-btn-wrapper:hover .pulse.dot { animation: none; background-color: hsla(var(--hue), 100%, 70%, 1); }
-.social-btn-wrapper:hover .pulse.dot::after { animation: none; opacity: 1; }
+
+.social-btn-wrapper:hover .pulse.dot {
+    animation: none;
+    background-color: hsla(var(--hue), 100%, 70%, 1);
+}
+
+.social-btn-wrapper:hover .pulse.dot::after {
+    animation: none;
+    opacity: 1;
+}
 
 /* Tooltip (tetap sama) */
 .social-btn-wrapper[data-tooltip]::after {
-    position: absolute; content: attr(data-tooltip); inset: -2.8rem auto auto 50%;
-    z-index: 10; translate: -50%; padding: 0.25rem 0.75rem; font-size: 0.875rem;
-    color: #fff; background: var(--bg, #070707); border-radius: 0.25rem; opacity: 0;
-    visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.47, 2, 0.41, 1.5);
+    position: absolute;
+    content: attr(data-tooltip);
+    inset: -2.8rem auto auto 50%;
+    z-index: 10;
+    translate: -50%;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    color: #fff;
+    background: var(--bg, #070707);
+    border-radius: 0.25rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.47, 2, 0.41, 1.5);
 }
+
 .social-btn-wrapper:hover[data-tooltip]::after {
-    opacity: 1; visibility: visible; inset-block-start: -3.2rem;
+    opacity: 1;
+    visibility: visible;
+    inset-block-start: -3.2rem;
 }
 
 /* --- Voltage Button --- */
-.voltage-button-wrapper { position: relative; margin-top: 30px; width: 100%; display: flex; justify-content: center; }
+.voltage-button-wrapper {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .voltage-button {
-    color: white; background: #0D1127; border-radius: 5rem; border: 3px solid #5978F3;
-    font-size: 1.1rem; font-weight: 600; letter-spacing: 0.075em; transition: background 0.3s;
-    cursor: pointer; position: relative; z-index: 1; width: 15rem; height: 4rem;
-    padding: 0; display: flex; justify-content: center; align-items: center;
+    color: white;
+    background: #0D1127;
+    border-radius: 5rem;
+    border: 3px solid #5978F3;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.075em;
+    transition: background 0.3s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    width: 15rem;
+    height: 4rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.voltage-button-wrapper:hover .voltage-button { background: #0F1C53; }
-.voltage-button-wrapper:hover .voltage-svg, .voltage-button-wrapper:hover .voltage-dots { opacity: 1; }
+
+.voltage-button-wrapper:hover .voltage-button {
+    background: #0F1C53;
+}
+
+.voltage-button-wrapper:hover .voltage-svg,
+.voltage-button-wrapper:hover .voltage-dots {
+    opacity: 1;
+}
+
 .voltage-svg {
-    display: block; position: absolute; pointer-events: none; opacity: 0;
-    transition: opacity 0.4s; transition-delay: 0.1s; z-index: 2;
-    width: 16rem; height: 5rem; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    transition-delay: 0.1s;
+    z-index: 2;
+    width: 16rem;
+    height: 5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-.voltage-line { stroke-dasharray: 100; filter: url('#glow'); }
-.voltage-line.line-1 { stroke: #f6de8d; stroke-dashoffset: 0; animation: spark-1 3s linear infinite; }
-.voltage-line.line-2 { stroke: #6bfeff; stroke-dashoffset: 500; animation: spark-2 3s linear infinite; }
+
+.voltage-line {
+    stroke-dasharray: 100;
+    filter: url('#glow');
+}
+
+.voltage-line.line-1 {
+    stroke: #f6de8d;
+    stroke-dashoffset: 0;
+    animation: spark-1 3s linear infinite;
+}
+
+.voltage-line.line-2 {
+    stroke: #6bfeff;
+    stroke-dashoffset: 500;
+    animation: spark-2 3s linear infinite;
+}
+
 .voltage-dots {
-    opacity: 0; transition: opacity 0.3s; transition-delay: 0.4s; width: 100%;
-    height: 100%; position: absolute; top: 0; left: 0; pointer-events: none; z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+    transition-delay: 0.4s;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 3;
 }
-.voltage-dots .dot { width: 0.5rem; height: 0.5rem; background: white; border-radius: 100%; position: absolute; opacity: 0; }
-.dot-1 { top: 0; left: 20%; animation: fly-up 3s linear infinite; }
-.dot-2 { top: 0; left: 55%; animation: fly-up 3s linear infinite 0.5s; }
-.dot-3 { top: 0; left: 80%; animation: fly-up 3s linear infinite 1s; }
-.dot-4 { bottom: 0; left: 30%; animation: fly-down 3s linear infinite 2.5s; }
-.dot-5 { bottom: 0; left: 65%; animation: fly-down 3s linear infinite 1.5s; }
-@keyframes spark-1 { to { stroke-dashoffset: -1000; } }
-@keyframes spark-2 { to { stroke-dashoffset: -500; } }
-@keyframes fly-up { 0% { opacity:0; transform:translateY(0) scale(0.2); } 5% { opacity:1; transform:translateY(-1.5rem) scale(0.4);} 10%, 100%{ opacity:0; transform:translateY(-3rem) scale(0.2);} }
-@keyframes fly-down { 0% { opacity:0; transform:translateY(0) scale(0.2); } 5% { opacity:1; transform:translateY(1.5rem) scale(0.4);} 10%, 100%{ opacity:0; transform:translateY(3rem) scale(0.2);} }
+
+.voltage-dots .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: white;
+    border-radius: 100%;
+    position: absolute;
+    opacity: 0;
+}
+
+.dot-1 {
+    top: 0;
+    left: 20%;
+    animation: fly-up 3s linear infinite;
+}
+
+.dot-2 {
+    top: 0;
+    left: 55%;
+    animation: fly-up 3s linear infinite 0.5s;
+}
+
+.dot-3 {
+    top: 0;
+    left: 80%;
+    animation: fly-up 3s linear infinite 1s;
+}
+
+.dot-4 {
+    bottom: 0;
+    left: 30%;
+    animation: fly-down 3s linear infinite 2.5s;
+}
+
+.dot-5 {
+    bottom: 0;
+    left: 65%;
+    animation: fly-down 3s linear infinite 1.5s;
+}
+
+@keyframes spark-1 {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+@keyframes spark-2 {
+    to {
+        stroke-dashoffset: -500;
+    }
+}
+
+@keyframes fly-up {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.2);
+    }
+
+    5% {
+        opacity: 1;
+        transform: translateY(-1.5rem) scale(0.4);
+    }
+
+    10%,
+    100% {
+        opacity: 0;
+        transform: translateY(-3rem) scale(0.2);
+    }
+}
+
+@keyframes fly-down {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.2);
+    }
+
+    5% {
+        opacity: 1;
+        transform: translateY(1.5rem) scale(0.4);
+    }
+
+    10%,
+    100% {
+        opacity: 0;
+        transform: translateY(3rem) scale(0.2);
+    }
+}
 
 /* ==================================
    9. FOOTER
    ================================== */
 footer {
-    background-color: #16213e; color: #a0a0a0; padding: 30px 20px;
-    text-align: center; width: 100%; box-sizing: border-box;
+    background-color: #16213e;
+    color: #a0a0a0;
+    padding: 30px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
     margin-top: auto;
 }
-footer p { background-color: transparent !important; margin: 0; padding: 0; }
+
+footer p {
+    background-color: transparent !important;
+    margin: 0;
+    padding: 0;
+}
 
 /* ==================================
    10. RESPONSIVENESS
    ================================== */
 @media (max-width: 820px) {
-    .hero { flex-direction: column; text-align: center; }
-    .hero-left, .hero-right { padding: 0; margin-bottom: 40px; }
-    .hero-left { order: 2; }
-    .hero-right { order: 1; margin-bottom: 20px; }
-    .hero-left .bio-summary { margin-left: auto; margin-right: auto; }
-    .hero-buttons { justify-content: center; }
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-left,
+    .hero-right {
+        padding: 0;
+        margin-bottom: 40px;
+    }
+
+    .hero-left {
+        order: 2;
+    }
+
+    .hero-right {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .hero-left .bio-summary {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
 }
+
 @media (max-width: 480px) {
-    .hero-left h1 { font-size: 2.5rem; }
-    .hero-left h2 { font-size: 1.5rem; }
-    .hero-buttons { flex-direction: column; gap: 15px; }
+    .hero-left h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-left h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
 }

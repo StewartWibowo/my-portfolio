@@ -14,6 +14,10 @@
                 "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
             }}
     </script>
+    <script src="https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/RenderPass.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js"></script>
 </head>
 
 <body>
@@ -26,10 +30,10 @@
         <nav>
             <div class="logo">MyPortfolio</div>
             <ul>
-                <li data-active="true"><a href="#home" class="glowing-text">Home</a></li>
-                <li><a href="#about" class="glowing-text">About</a></li>
-                <li><a href="#portfolio" class="glowing-text">Portfolio</a></li>
-                <li><a href="#contact" class="glowing-text">Contact</a></li>
+                <li data-active="true"><a href="#home" class="glowing-text" style="--i:1;">Home</a></li>
+                <li><a href="#about" class="glowing-text" style="--i:2;">About</a></li>
+                <li><a href="#portfolio" class="glowing-text" style="--i:3;">Portfolio</a></li>
+                <li><a href="#contact" class="glowing-text" style="--i:4;">Contact</a></li>
                 <div id="nav-sparkle-underline"></div>
             </ul>
         </nav>
@@ -39,7 +43,7 @@
         <section id="home" class="hero">
             <canvas id="hero-background-canvas"></canvas>
             <div class="hero-content-wrapper">
-                <div class="hero-left">
+                <div class="hero-left glassy-container">
                     <p class="greeting">Halo, saya</p>
                     <h1>Stewart Wibowo</h1>
                     <h2>Data Science & AI Enthusiast | Music Instructor (Violin & Piano)</h2>
@@ -66,22 +70,11 @@
             </div>
         </section>
 
-        <section id="about" class="services content-section">
-            <h2>Keahlian Saya</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Web Design</h3>
-                    <p>Menciptakan desain web yang modern, responsif, dan intuitif untuk pengalaman pengguna terbaik.
-                    </p>
-                </div>
-                <div class="card">
-                    <h3>Frontend Dev</h3>
-                    <p>Mengubah desain menjadi kode interaktif menggunakan HTML, CSS, dan JavaScript.</p>
-                </div>
-                <div class="card">
-                    <h3>Backend Dev</h3>
-                    <p>Membangun logika sisi server dan database untuk aplikasi yang kuat dan skalabel.</p>
-                </div>
+        <section id="about" class="about-3d-timeline">
+            <canvas id="timeline-canvas"></canvas>
+            <div class="timeline-overlay">
+                <h2>Perjalanan Saya</h2>
+                <div id="current-year" class="current-year"></div>
             </div>
         </section>
 
@@ -141,7 +134,8 @@
                             <div class="dot pulse"></div>
                         </a>
                         <a href="mailto:stewartwibowo32@gmail.com?subject=Pesan dari Portofolio"
-                            class="social-btn-wrapper" style="--hue: 3deg; --bg: #c71610;" data-tooltip="stewartwibowo32@gmail.com">
+                            class="social-btn-wrapper" style="--hue: 3deg; --bg: #c71610;"
+                            data-tooltip="stewartwibowo32@gmail.com">
                             <button class="social-btn">
                                 <i class="fa-solid fa-envelope"></i>
                                 <span class="btn-txt">Email</span>
@@ -243,6 +237,7 @@
     </footer>
 
     <script type="module" src="./JS/background3D.js"></script>
+    <script type="module" src="./JS/timeline3D.js"></script>
     <script src="./JS/script.js"></script>
 </body>
 

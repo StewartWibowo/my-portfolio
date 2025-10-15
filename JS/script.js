@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
     if (preloader) {
         setTimeout(() => {
             preloader.classList.add('fade-out');
+            document.querySelector('header').classList.add('show-animate');
         }, 2000); // Delay 2 detik
     }
 
