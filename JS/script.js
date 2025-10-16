@@ -77,9 +77,9 @@ window.addEventListener('load', () => {
     }
 
 
-    // ==================================
-    // 3. LOGIKA FORM KONTAK (VERSI PALING STABIL)
-    // ==================================
+    // ======================
+    // 3. LOGIKA FORM KONTAK
+    // ======================
     const contactForm = document.getElementById('contact-form');
 
     if (contactForm) {
@@ -92,7 +92,7 @@ window.addEventListener('load', () => {
         const messageInput = document.getElementById('form-message');
         const charCounter = document.getElementById('char-counter');
         const limit = 2000;
-        const phoneNumber = '6289675902791'; // Ganti dengan nomor Anda
+        const phoneNumber = '6289675902791';
 
         // Template dasar pesan (hanya teks, tanpa nilai input)
         const baseTemplate = `

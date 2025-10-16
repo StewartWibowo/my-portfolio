@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.querySelector('.hero');
     if (!canvas || !heroSection) return;
 
-    // --- Konfigurasi Utama (Meniru Referensi) ---
+    // --- Konfigurasi Utama ---
     const config = {
         count: 200,
         friction: 0.985, // Gesekan agar bola melambat dengan halus
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         wallBounce: 0.6 + Math.random() * 0.3, // Pantulan acak
     }));
 
-    // Spawn semua bola di tengah untuk efek "Big Bang"
+    // Spawn semua bola di tengah
     for (let i = 0; i < config.count; i++) {
         positions[i].set(
             (Math.random() - 0.5) * 0.2, (Math.random() - 0.5) * 0.2, (Math.random() - 0.5) * 0.2

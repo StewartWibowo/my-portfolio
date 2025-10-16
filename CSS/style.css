@@ -49,12 +49,11 @@ h2 {
 
 main {
     flex-grow: 1;
-    /* Dihapus dari body agar tidak konflik */
 }
 
-/* ==================================
+/* ===============
    2. PRELOADER
-   ================================== */
+   =============== */
 .preloader {
     position: fixed;
     top: 0;
@@ -98,7 +97,7 @@ main {
 }
 
 /* ==================================
-   3. HEADER & NAVIGATION (VERSI FINAL)
+   3. HEADER & NAVIGATION 
    ================================== */
 header {
     position: absolute;
@@ -395,7 +394,6 @@ header.show-animate nav ul li a {
    13. EFEK GLASSY CONTAINER
    ================================== */
 .glassy-container {
-    /* Variabel Warna: Ubah nilai --h (hue) untuk warna lain. Misal: 270 untuk ungu */
     --h: 200;
     --s: 90%;
     --l: 60%;
@@ -702,7 +700,7 @@ body {
 }
 
 /* ==================================
-   CONTACT SECTION - SOCIAL BUTTONS (FINAL & BENAR)
+   CONTACT SECTION - SOCIAL BUTTONS
    ================================== */
 
 /* Container untuk semua tombol ikon */
@@ -859,7 +857,7 @@ body {
     opacity: 1;
 }
 
-/* Tooltip (tetap sama) */
+/* Tooltip */
 .social-btn-wrapper[data-tooltip]::after {
     position: absolute;
     content: attr(data-tooltip);

@@ -37,7 +37,18 @@ for (let i = 0; i < starCount * 3; i++) {
     posArray[i] = (Math.random() - 0.5) * 200; // Sebar bintang di area yang luas
 }
 starGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-const starMaterial = new THREE.PointsMaterial({ size: 0.1, color: 0xffffff });
+const starMaterial = new THREE.ShaderMaterial({
+    vertexShader: `void main() {
+        vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * modelViewPosition;
+        gl_PointSize = 5.0 * (1.0 / -modelViewPosition.z);
+    }`,
+    fragmentShader: `void main() {
+        if (distance(gl_PointCoord, vec2(0.5)) > 0.5) discard;
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }`,
+    transparent: true
+});
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 // =======================================================
@@ -68,7 +79,7 @@ timelineEvents.forEach(event => {
 // 3. Buat Efek Gelombang (Wave) - Konsep Sederhana
 const waveGeometry = new THREE.PlaneGeometry(100, 100, 100, 100); 
 const waveParticlesMaterial = new THREE.PointsMaterial({
-    size: 0.1, // Ukuran setiap titik. Anda bisa ubah nilai ini.
+    size: 0.1, // Ukuran setiap titik.
     color: 0x00aaff, // Warna titik
     transparent: true, // Aktifkan transparansi
     blending: THREE.AdditiveBlending // Efek glow saat titik bertumpuk
