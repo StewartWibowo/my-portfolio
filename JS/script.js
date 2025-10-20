@@ -1,3 +1,4 @@
+import { updateTimelineCamera } from './timeline3D.js';
 // ==================================
 // 1. LOGIKA UNTUK HEADER SAAT SCROLL
 // ==================================
@@ -17,7 +18,11 @@ if (header) {
 // 2. LOGIKA SAAT HALAMAN SELESAI DIMUAT
 // ==================================
 window.addEventListener('load', () => {
-    
+    const aboutSection = document.getElementById('about');
+    let isAboutSectionVisible = false;
+    let timelineProgress = 0; // Progress dari 0.0 sampai 1.0
+    const SCROLL_SENSITIVITY = 0.001;
+
     // --- Bagian Preloader ---
     const preloader = document.querySelector('.preloader');
     if (preloader) {
@@ -53,7 +58,7 @@ window.addEventListener('load', () => {
                 if (oldActiveItem) {
                     oldActiveItem.removeAttribute('data-active');
                 }
-                
+
                 const newItem = item;
                 newItem.setAttribute('data-active', 'true');
                 currentActiveItem = newItem;
@@ -67,7 +72,7 @@ window.addEventListener('load', () => {
 
                     sparkle.style.width = `${stretchWidth}px`;
                     sparkle.style.transform = `translateX(${startPoint}px)`;
-                    
+
                     setTimeout(() => {
                         setSparklePosition(newItem);
                     }, 50);
@@ -76,6 +81,39 @@ window.addEventListener('load', () => {
         });
     }
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isAboutSectionVisible = entry.isIntersecting;
+        });
+    }, {
+        threshold: 0.5 // Anggap terlihat jika 50% section masuk layar
+    });
+    observer.observe(aboutSection);
+
+    window.addEventListener('wheel', (event) => {
+        // Hanya jalankan logika ini jika section 'about' sedang terlihat
+        if (isAboutSectionVisible) {
+            // Cek apakah scroll akan melewati batas
+            const isScrollingDownPastLimit = event.deltaY > 0 && timelineProgress >= 1.0;
+            const isScrollingUpPastLimit = event.deltaY < 0 && timelineProgress <= 0.0;
+
+            // Jika scroll masih di dalam rentang timeline, 'bajak' scrollnya
+            if (!isScrollingDownPastLimit && !isScrollingUpPastLimit) {
+                event.preventDefault(); // Hentikan scroll normal halaman
+
+                // Update progress timeline berdasarkan arah scroll
+                timelineProgress += event.deltaY * SCROLL_SENSITIVITY;
+
+                // Batasi nilai progress antara 0 dan 1
+                timelineProgress = Math.max(0, Math.min(1, timelineProgress));
+
+                // Kirim nilai progress ke modul timeline3D
+                updateTimelineCamera(timelineProgress);
+            }
+            // Jika scroll melewati batas, jangan lakukan apa-apa.
+            // Biarkan browser melakukan scroll normal ke section berikutnya/sebelumnya.
+        }
+    }, { passive: false });
 
     // ======================
     // 3. LOGIKA FORM KONTAK
@@ -105,14 +143,14 @@ window.addEventListener('load', () => {
             const userTypedLength = allInputs.reduce((total, input) => total + input.value.length, 0);
             const totalLength = templateLength + userTypedLength;
             const remaining = limit - totalLength;
-            
+
             // Logika untuk membatasi input
             if (remaining < 0) {
                 const targetInput = event.target;
                 const overLimit = totalLength - limit;
                 targetInput.value = targetInput.value.substring(0, targetInput.value.length - overLimit);
                 // Setelah memotong, panggil fungsi ini lagi untuk update tampilan counter
-                handleInput(event); 
+                handleInput(event);
                 return; // Hentikan eksekusi lebih lanjut
             }
 
@@ -146,7 +184,7 @@ window.addEventListener('load', () => {
                 alert("Harap isi form terlebih dahulu sebelum mengirim.");
                 return;
             }
-            
+
             const finalMessageTemplate = `
 *Pesan dari Website Portofolio*
 

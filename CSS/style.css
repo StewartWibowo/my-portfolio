@@ -282,14 +282,6 @@ header.show-animate nav ul li a {
     font-weight: 500;
 }
 
-.hero-left .bio-summary {
-    font-size: 1.1rem;
-    color: #a0a0a0;
-    margin-bottom: 40px;
-    max-width: 500px;
-    line-height: 1.6;
-}
-
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -452,6 +444,12 @@ header.show-animate nav ul li a {
 }
 
 .glassy-container .bio-summary {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-bottom: 40px;
+    max-width: 500px;
+    line-height: 1.6;
+
     color: #e0e0e0; /* Warna dibuat lebih terang */
     font-weight: 500; /* Sedikit lebih tebal */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Bayangan tipis untuk kontras */
@@ -568,10 +566,6 @@ header.show-animate nav ul li a {
     pointer-events: none;
 }
 
-/* Sembunyikan scrollbar di body jika tidak diperlukan */
-body {
-    overflow-y: hidden; /* Kita akan mengontrol scroll secara manual */
-}
 
 /* ==================================
    8. CONTACT SECTION
