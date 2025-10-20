@@ -461,17 +461,17 @@ header.show-animate nav ul li a {
 .portfolio-grid {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     flex-wrap: wrap;
     margin-top: 20px;
-    max-width: 1200px;
+    max-width: 1550px;
     margin: 20px auto 0;
 }
 
 .zoom-overlay {
     position: relative;
-    width: 350px;
-    height: 250px;
+    width: 450px;
+    height: 320px;
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;
